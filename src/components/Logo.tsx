@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export function Logo({ className = "h-9 w-auto", showWordmark = true }) {
+export function Logo({ className = "h-9 w-auto", showWordmark = true }: any) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <svg viewBox="0 0 60 60" className="h-9 w-9" aria-hidden="true">
