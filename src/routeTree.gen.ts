@@ -14,7 +14,11 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/_dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardDashboardIndexRouteImport } from './routes/_dashboard/dashboard.index'
+import { Route as DashboardDashboardWalletRouteImport } from './routes/_dashboard/dashboard.wallet'
+import { Route as DashboardDashboardTailorsRouteImport } from './routes/_dashboard/dashboard.tailors'
+import { Route as DashboardDashboardSettingsRouteImport } from './routes/_dashboard/dashboard.settings'
 import { Route as DashboardDashboardOrdersRouteImport } from './routes/_dashboard/dashboard.orders'
+import { Route as DashboardDashboardExploreRouteImport } from './routes/_dashboard/dashboard.explore'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -40,10 +44,34 @@ const DashboardDashboardIndexRoute = DashboardDashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardDashboardWalletRoute =
+  DashboardDashboardWalletRouteImport.update({
+    id: '/dashboard/wallet',
+    path: '/dashboard/wallet',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardDashboardTailorsRoute =
+  DashboardDashboardTailorsRouteImport.update({
+    id: '/dashboard/tailors',
+    path: '/dashboard/tailors',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardDashboardSettingsRoute =
+  DashboardDashboardSettingsRouteImport.update({
+    id: '/dashboard/settings',
+    path: '/dashboard/settings',
+    getParentRoute: () => DashboardRoute,
+  } as any)
 const DashboardDashboardOrdersRoute =
   DashboardDashboardOrdersRouteImport.update({
     id: '/dashboard/orders',
     path: '/dashboard/orders',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardDashboardExploreRoute =
+  DashboardDashboardExploreRouteImport.update({
+    id: '/dashboard/explore',
+    path: '/dashboard/explore',
     getParentRoute: () => DashboardRoute,
   } as any)
 
@@ -51,14 +79,22 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/dashboard/explore': typeof DashboardDashboardExploreRoute
   '/dashboard/orders': typeof DashboardDashboardOrdersRoute
+  '/dashboard/settings': typeof DashboardDashboardSettingsRoute
+  '/dashboard/tailors': typeof DashboardDashboardTailorsRoute
+  '/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/dashboard/': typeof DashboardDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/dashboard/explore': typeof DashboardDashboardExploreRoute
   '/dashboard/orders': typeof DashboardDashboardOrdersRoute
+  '/dashboard/settings': typeof DashboardDashboardSettingsRoute
+  '/dashboard/tailors': typeof DashboardDashboardTailorsRoute
+  '/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/dashboard': typeof DashboardDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -67,21 +103,47 @@ export interface FileRoutesById {
   '/_dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/_dashboard/dashboard/explore': typeof DashboardDashboardExploreRoute
   '/_dashboard/dashboard/orders': typeof DashboardDashboardOrdersRoute
+  '/_dashboard/dashboard/settings': typeof DashboardDashboardSettingsRoute
+  '/_dashboard/dashboard/tailors': typeof DashboardDashboardTailorsRoute
+  '/_dashboard/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/dashboard/orders' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/dashboard/explore'
+    | '/dashboard/orders'
+    | '/dashboard/settings'
+    | '/dashboard/tailors'
+    | '/dashboard/wallet'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/dashboard/orders' | '/dashboard'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/dashboard/explore'
+    | '/dashboard/orders'
+    | '/dashboard/settings'
+    | '/dashboard/tailors'
+    | '/dashboard/wallet'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/_dashboard'
     | '/login'
     | '/signup'
+    | '/_dashboard/dashboard/explore'
     | '/_dashboard/dashboard/orders'
+    | '/_dashboard/dashboard/settings'
+    | '/_dashboard/dashboard/tailors'
+    | '/_dashboard/dashboard/wallet'
     | '/_dashboard/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -129,6 +191,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/dashboard/wallet': {
+      id: '/_dashboard/dashboard/wallet'
+      path: '/dashboard/wallet'
+      fullPath: '/dashboard/wallet'
+      preLoaderRoute: typeof DashboardDashboardWalletRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/dashboard/tailors': {
+      id: '/_dashboard/dashboard/tailors'
+      path: '/dashboard/tailors'
+      fullPath: '/dashboard/tailors'
+      preLoaderRoute: typeof DashboardDashboardTailorsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/dashboard/settings': {
+      id: '/_dashboard/dashboard/settings'
+      path: '/dashboard/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardDashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/_dashboard/dashboard/orders': {
       id: '/_dashboard/dashboard/orders'
       path: '/dashboard/orders'
@@ -136,16 +219,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardOrdersRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/dashboard/explore': {
+      id: '/_dashboard/dashboard/explore'
+      path: '/dashboard/explore'
+      fullPath: '/dashboard/explore'
+      preLoaderRoute: typeof DashboardDashboardExploreRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
 interface DashboardRouteChildren {
+  DashboardDashboardExploreRoute: typeof DashboardDashboardExploreRoute
   DashboardDashboardOrdersRoute: typeof DashboardDashboardOrdersRoute
+  DashboardDashboardSettingsRoute: typeof DashboardDashboardSettingsRoute
+  DashboardDashboardTailorsRoute: typeof DashboardDashboardTailorsRoute
+  DashboardDashboardWalletRoute: typeof DashboardDashboardWalletRoute
   DashboardDashboardIndexRoute: typeof DashboardDashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardDashboardExploreRoute: DashboardDashboardExploreRoute,
   DashboardDashboardOrdersRoute: DashboardDashboardOrdersRoute,
+  DashboardDashboardSettingsRoute: DashboardDashboardSettingsRoute,
+  DashboardDashboardTailorsRoute: DashboardDashboardTailorsRoute,
+  DashboardDashboardWalletRoute: DashboardDashboardWalletRoute,
   DashboardDashboardIndexRoute: DashboardDashboardIndexRoute,
 }
 
