@@ -1,8 +1,8 @@
 import { forwardRef, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-export const Input = forwardRef(function Input(
-  { label, error, required, className = "", type = "text", ...props },
+export const Input = forwardRef<HTMLInputElement, any>(function Input(
+  { label, error, required, className = "", type = "text", ...props }: any,
   ref
 ) {
   const [show, setShow] = useState(false);

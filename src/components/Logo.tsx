@@ -24,7 +24,7 @@ export function Logo({ className = "h-9 w-auto", showWordmark = true }) {
   );
 }
 
-export function AnimatedLogo({ className }) {
+export function AnimatedLogo({ className }: any) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -8 }}

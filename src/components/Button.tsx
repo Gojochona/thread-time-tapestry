@@ -21,14 +21,14 @@ const sizes = {
   icon: "h-10 w-10 p-0",
 };
 
-export const Button = forwardRef(function Button(
-  { variant = "primary", size = "md", className = "", children, ...props },
+export const Button = forwardRef<HTMLButtonElement, any>(function Button(
+  { variant = "primary", size = "md", className = "", children, ...props }: any,
   ref
 ) {
   return (
     <button
       ref={ref}
-      className={`inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${(variants as any)[variant]} ${(sizes as any)[size]} ${className}`}
       {...props}
     >
       {children}
