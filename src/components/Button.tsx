@@ -2,16 +2,16 @@ import { forwardRef } from "react";
 
 const variants = {
   primary:
-    "bg-primary text-primary-foreground hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0",
+    "bg-primary text-primary-foreground hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0 stitch stitch-light",
   accent:
-    "gradient-accent text-primary hover:shadow-accent hover:-translate-y-0.5",
+    "gradient-accent text-primary hover:shadow-accent hover:-translate-y-0.5 stitch stitch-dark",
   outline:
-    "border border-border bg-transparent text-foreground hover:bg-muted",
+    "border border-border bg-transparent text-foreground hover:bg-muted stitch stitch-dark",
   ghost: "bg-transparent text-foreground hover:bg-muted",
   secondary:
-    "bg-secondary text-secondary-foreground hover:bg-muted",
+    "bg-secondary text-secondary-foreground hover:bg-muted stitch stitch-dark",
   glass:
-    "glass text-foreground hover:bg-white/90",
+    "glass text-foreground hover:bg-white/90 stitch stitch-dark",
 };
 
 const sizes = {
@@ -28,10 +28,10 @@ export const Button = forwardRef<HTMLButtonElement, any>(function Button(
   return (
     <button
       ref={ref}
-      className={`inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${(variants as any)[variant]} ${(sizes as any)[size]} ${className}`}
+      className={`relative inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${(variants as any)[variant]} ${(sizes as any)[size]} ${className}`}
       {...props}
     >
-      {children}
+      <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
     </button>
   );
 });

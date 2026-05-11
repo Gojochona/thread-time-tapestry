@@ -133,6 +133,21 @@
     backdrop-filter: blur(20px);
     border: 1px solid color-mix(in oklab, var(--primary) 12%, transparent);
   }
+  /* Sewn-in stitched edge — dashed inset ring that mimics thread stitching */
+  .stitch { position: relative; }
+  .stitch::after {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: inherit;
+    border: 1.5px dashed currentColor;
+    opacity: 0.55;
+    pointer-events: none;
+    transition: inset 0.3s ease, opacity 0.3s ease;
+  }
+  .stitch:hover::after { inset: 4px; opacity: 0.85; }
+  .stitch-light::after { border-color: color-mix(in oklab, white 75%, transparent); opacity: 0.7; }
+  .stitch-dark::after { border-color: color-mix(in oklab, var(--primary) 55%, transparent); opacity: 0.6; }
 }
 
 /* Animated background blobs */
