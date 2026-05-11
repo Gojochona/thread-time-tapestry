@@ -30,7 +30,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6,  },
 };
 
 function Hero() {
@@ -76,7 +76,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8,  }}
             className="relative"
           >
             <div className="relative overflow-hidden rounded-[2.5rem] shadow-elegant">
@@ -233,7 +233,7 @@ function Testimonials() {
   const ts = [
     { quote: "Game changer. The fit, the fabric, the follow-through — better than my Saville Row tailor.", name: "Daniel Mensah", role: "Architect, Accra" },
     { quote: "I uploaded a Pinterest board and got a perfect Aso Ebi for my wedding. Pure magic.", name: "Adaeze N.", role: "Bride, Lagos" },
-    { quote: "Finally a platform that respects both customers and craftsmen. Payments are seamless.", name: "Tope A.", role: "Master tailor", },
+    { quote: "Finally a platform that respects both customers and craftsmen. Payments are seamless.", name: "Tope A.", role: "Master tailor" },
   ];
   return (
     <section id="testimonials" className="py-24 bg-cream">
