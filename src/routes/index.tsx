@@ -401,16 +401,110 @@ function CTA() {
   );
 }
 
+function StorySection() {
+  return (
+    <section className="relative overflow-hidden py-24 sm:py-32 bg-cream">
+      <div className="absolute inset-0 -z-10 mesh-bg opacity-70" />
+      <div className="absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
+      <div className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Our story</p>
+          <h2 className="mt-3 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+            Behind every number
+            <br />
+            is a <span className="text-gradient-accent italic">story.</span>
+          </h2>
+          <p className="mt-5 text-muted-foreground">
+            7,000+ wardrobes. 450+ master tailors. Thousands of late-night fittings, hand-pulled threads and finished pieces
+            — every order is a relationship, every stitch a small act of trust.
+          </p>
+        </motion.div>
+
+        {/* Layered editorial composition with centered i-s emblem */}
+        <div className="relative mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4">
+          <motion.div {...fadeUp} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+            <img src={story1} alt="Master tailor at work" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={showcase2} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={story2} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+            <img src={stressRelief} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.2 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={showcase3} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.25 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={showcase1} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+
+          {/* centered i-s emblem */}
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
+            <div className="stitch stitch-light flex h-24 w-24 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-elegant sm:h-28 sm:w-28">
+              <span className="font-display text-3xl italic font-bold">i-s</span>
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div {...fadeUp} className="mt-14 grid gap-6 sm:grid-cols-3">
+          {[
+            { n: "7,000+", l: "Wardrobes crafted" },
+            { n: "450+", l: "Master tailors" },
+            { n: "96%", l: "Satisfaction rate" },
+          ].map((s) => (
+            <div key={s.l} className="rounded-3xl border border-border bg-card/80 p-6 text-center backdrop-blur shadow-soft">
+              <div className="font-display text-4xl font-bold text-gradient">{s.n}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{s.l}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function PaymentsBand() {
+  return (
+    <section className="relative py-16">
+      <div className="mx-auto max-w-5xl px-6 text-center">
+        <motion.p {...fadeUp} className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          <Scissors size={12} className="mr-2 inline -translate-y-px text-accent" />
+          Secure checkout — pay your way
+        </motion.p>
+        <motion.h3 {...fadeUp} className="mt-3 font-display text-2xl font-semibold sm:text-3xl">
+          Every major payment method, beautifully handled.
+        </motion.h3>
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="mt-8 flex justify-center">
+          <PaymentMethodsRow />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 function Landing() {
   return (
     <div className="relative">
       <Navbar />
       <main>
         <Hero />
+        <SayGoodbye />
         <Features />
         <HowItWorks />
         <Showcase />
+        <StorySection />
         <Testimonials />
+        <PaymentsBand />
         <FAQ />
         <CTA />
       </main>
