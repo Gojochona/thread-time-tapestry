@@ -1,4 +1,5 @@
 import { Logo } from "./Logo";
+import { PaymentMethodsRow } from "./PaymentIcons";
 
 export function Footer() {
   const cols = [
@@ -16,6 +17,10 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               Custom tailoring without the stress. Verified tailors, secure payment and end-to-end order tracking.
             </p>
+            <div className="mt-6">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Payment methods</p>
+              <PaymentMethodsRow />
+            </div>
           </div>
           {cols.map((c) => (
             <div key={c.title}>
@@ -30,11 +35,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center">
           <p>© 2026 i-sew. Crafted with care.</p>
-          <div className="flex gap-2 opacity-70">
-            <span className="rounded-md border border-border px-2 py-1 text-xs">VISA</span>
-            <span className="rounded-md border border-border px-2 py-1 text-xs">Mastercard</span>
-            <span className="rounded-md border border-border px-2 py-1 text-xs">Apple Pay</span>
-          </div>
+          <p>Made for people who care about fit.</p>
         </div>
       </div>
     </footer>

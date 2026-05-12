@@ -2,17 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ShieldCheck, MapPin, Sparkles, Users, CreditCard, Truck, Store,
-  ChevronRight, Star, Plus, Minus,
+  ChevronRight, Star, Plus, Minus, Scissors,
 } from "lucide-react";
 import { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { Blobs } from "../components/Blobs";
 import { Button } from "../components/Button";
+import { PaymentMethodsRow } from "../components/PaymentIcons";
 import heroImg from "../assets/hero-tailor.jpg";
 import showcase1 from "../assets/showcase-1.jpg";
 import showcase2 from "../assets/showcase-2.jpg";
 import showcase3 from "../assets/showcase-3.jpg";
+import stressRelief from "../assets/stress-relief.jpg";
+import story1 from "../assets/story-1.jpg";
+import story2 from "../assets/story-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -116,35 +120,112 @@ function Hero() {
   );
 }
 
+function SayGoodbye() {
+  return (
+    <section className="relative overflow-hidden py-24 sm:py-32">
+      <Blobs />
+      <div className="absolute inset-0 -z-10 mesh-bg opacity-60" />
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
+          <motion.div {...fadeUp}>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">A new era of bespoke</p>
+            <h2 className="mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+              Say goodbye to
+              <br />
+              <span className="text-gradient-accent italic">tailoring stress.</span>
+            </h2>
+            <p className="mt-6 max-w-lg text-lg text-muted-foreground">
+              No more missed deadlines, mismatched fabrics or awkward fittings. i-sew brings the entire experience —
+              from inspiration to final stitch — into one calm, beautifully orchestrated journey.
+            </p>
+            <div className="mt-8 grid max-w-md gap-4 sm:grid-cols-2">
+              {[
+                { k: "Zero", v: "missed deadlines" },
+                { k: "100%", v: "verified tailors" },
+                { k: "Escrow", v: "secured payments" },
+                { k: "14 days", v: "free re-tailoring" },
+              ].map((s) => (
+                <div key={s.v} className="rounded-2xl border border-border bg-card/70 p-4 backdrop-blur">
+                  <div className="font-display text-2xl font-bold text-gradient">{s.k}</div>
+                  <div className="text-xs text-muted-foreground">{s.v}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Editorial layered photo composition */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative mx-auto h-[520px] w-full max-w-md"
+          >
+            <div className="absolute left-2 top-6 h-72 w-52 -rotate-6 overflow-hidden rounded-[2rem] shadow-elegant">
+              <img src={showcase1} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <span className="tape -top-2 left-6 -rotate-6" />
+            </div>
+            <div className="absolute right-0 top-0 h-80 w-56 rotate-3 overflow-hidden rounded-[2rem] shadow-elegant">
+              <img src={stressRelief} alt="Calm tailoring experience" className="h-full w-full object-cover" loading="lazy" />
+              <span className="tape -top-2 right-6 rotate-6" />
+            </div>
+            <div className="absolute bottom-0 left-1/2 h-64 w-56 -translate-x-1/2 rotate-1 overflow-hidden rounded-[2rem] shadow-elegant">
+              <img src={story2} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <span className="tape -top-2 left-1/2 -translate-x-1/2 -rotate-2" />
+            </div>
+            <div className="float glass absolute -right-2 bottom-12 rounded-2xl p-3">
+              <div className="flex items-center gap-2">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full gradient-accent text-primary">
+                  <Sparkles size={16} />
+                </div>
+                <div className="text-xs">
+                  <div className="font-semibold">Stress-free</div>
+                  <div className="text-muted-foreground">end-to-end</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Features() {
   const items = [
     { icon: Users, title: "Find trusted tailors", desc: "Hand-vetted master craftsmen rated by real customers." },
+    { icon: ShieldCheck, title: "Already know a tailor?", desc: "Invite yours and run the entire order through i-sew." },
     { icon: CreditCard, title: "Pay with confidence", desc: "Funds held in escrow until you approve the finished piece." },
-    { icon: Truck, title: "Track every step", desc: "Real-time updates from measurement to final stitch." },
+    { icon: Truck, title: "Trace every step", desc: "Real-time updates from measurement to final stitch." },
     { icon: Store, title: "Fabric marketplace", desc: "Curated textiles delivered straight to your tailor." },
   ];
   return (
-    <section id="features" className="relative py-24 sm:py-32">
+    <section id="features" className="relative overflow-hidden py-24 sm:py-32">
+      <div className="absolute inset-0 -z-10 mesh-bg opacity-50" />
       <div className="mx-auto max-w-7xl px-6">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-accent">Everything you need</p>
-          <h2 className="mt-3 font-display text-4xl font-bold sm:text-5xl">All in one place</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Everything you need</p>
+          <h2 className="mt-3 font-display text-5xl font-bold sm:text-6xl">
+            All in <span className="text-gradient-accent italic">one place</span>
+          </h2>
           <p className="mt-4 text-muted-foreground">A focused toolkit for ordering bespoke without the back-and-forth.</p>
         </motion.div>
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <motion.div
               key={it.title}
               {...fadeUp}
               transition={{ ...fadeUp.transition, delay: i * 0.06 }}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-7 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elegant"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card/80 p-7 shadow-soft backdrop-blur transition-all hover:-translate-y-1 hover:shadow-elegant"
             >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary text-primary-foreground shadow-glow">
-                <it.icon size={22} />
+              <span className="bg-numeral absolute -right-2 -top-10 select-none">{i + 1}</span>
+              <div className="relative">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary text-primary-foreground shadow-glow">
+                  <it.icon size={22} />
+                </div>
+                <h3 className="font-display text-2xl font-semibold">{it.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
               </div>
-              <h3 className="font-display text-xl font-semibold">{it.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
-              <div className="absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
             </motion.div>
           ))}
         </div>
@@ -320,16 +401,110 @@ function CTA() {
   );
 }
 
+function StorySection() {
+  return (
+    <section className="relative overflow-hidden py-24 sm:py-32 bg-cream">
+      <div className="absolute inset-0 -z-10 mesh-bg opacity-70" />
+      <div className="absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
+      <div className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Our story</p>
+          <h2 className="mt-3 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+            Behind every number
+            <br />
+            is a <span className="text-gradient-accent italic">story.</span>
+          </h2>
+          <p className="mt-5 text-muted-foreground">
+            7,000+ wardrobes. 450+ master tailors. Thousands of late-night fittings, hand-pulled threads and finished pieces
+            — every order is a relationship, every stitch a small act of trust.
+          </p>
+        </motion.div>
+
+        {/* Layered editorial composition with centered i-s emblem */}
+        <div className="relative mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4">
+          <motion.div {...fadeUp} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+            <img src={story1} alt="Master tailor at work" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={showcase2} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={story2} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+            <img src={stressRelief} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.2 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={showcase3} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.25 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+            <img src={showcase1} alt="" loading="lazy" className="h-full w-full object-cover" />
+          </motion.div>
+
+          {/* centered i-s emblem */}
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
+            <div className="stitch stitch-light flex h-24 w-24 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-elegant sm:h-28 sm:w-28">
+              <span className="font-display text-3xl italic font-bold">i-s</span>
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div {...fadeUp} className="mt-14 grid gap-6 sm:grid-cols-3">
+          {[
+            { n: "7,000+", l: "Wardrobes crafted" },
+            { n: "450+", l: "Master tailors" },
+            { n: "96%", l: "Satisfaction rate" },
+          ].map((s) => (
+            <div key={s.l} className="rounded-3xl border border-border bg-card/80 p-6 text-center backdrop-blur shadow-soft">
+              <div className="font-display text-4xl font-bold text-gradient">{s.n}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{s.l}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function PaymentsBand() {
+  return (
+    <section className="relative py-16">
+      <div className="mx-auto max-w-5xl px-6 text-center">
+        <motion.p {...fadeUp} className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          <Scissors size={12} className="mr-2 inline -translate-y-px text-accent" />
+          Secure checkout — pay your way
+        </motion.p>
+        <motion.h3 {...fadeUp} className="mt-3 font-display text-2xl font-semibold sm:text-3xl">
+          Every major payment method, beautifully handled.
+        </motion.h3>
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="mt-8 flex justify-center">
+          <PaymentMethodsRow />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 function Landing() {
   return (
     <div className="relative">
       <Navbar />
       <main>
         <Hero />
+        <SayGoodbye />
         <Features />
         <HowItWorks />
         <Showcase />
+        <StorySection />
         <Testimonials />
+        <PaymentsBand />
         <FAQ />
         <CTA />
       </main>
