@@ -422,28 +422,22 @@ function StorySection() {
           </p>
         </motion.div>
 
-        {/* Layered editorial composition with centered i-s emblem */}
-        <div className="relative mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4">
-          <motion.div {...fadeUp} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+        {/* 4-photo composition with centered i-sew emblem */}
+        <div className="relative mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-4 sm:gap-6">
+          <motion.div {...fadeUp} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={story1} alt="Master tailor at work" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={showcase2} alt="" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={story2} alt="" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={stressRelief} alt="" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.2 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
-            <img src={showcase3} alt="" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.25 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
-            <img src={showcase1} alt="" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
 
-          {/* centered i-s emblem */}
+          {/* centered i-sew emblem */}
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
@@ -451,8 +445,8 @@ function StorySection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           >
-            <div className="stitch stitch-light flex h-24 w-24 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-elegant sm:h-28 sm:w-28">
-              <span className="font-display text-3xl italic font-bold">i-s</span>
+            <div className="stitch stitch-light flex h-28 w-28 items-center justify-center rounded-full bg-card shadow-elegant sm:h-36 sm:w-36">
+              <img src={isewMark} alt="i-sew" className="h-16 w-16 sm:h-20 sm:w-20 object-contain" />
             </div>
           </motion.div>
         </div>
