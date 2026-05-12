@@ -202,6 +202,7 @@ function Features() {
   ];
   return (
     <section id="features" className="relative overflow-hidden py-24 sm:py-32">
+      <Blobs />
       <div className="absolute inset-0 -z-10 mesh-bg opacity-50" />
       <div className="mx-auto max-w-7xl px-6">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
