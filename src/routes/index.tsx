@@ -407,10 +407,11 @@ function CTA() {
 function StorySection() {
   return (
     <section className="relative overflow-hidden py-24 sm:py-32 bg-cream">
+      <Blobs variant="rich" />
       <div className="absolute inset-0 -z-10 mesh-bg opacity-70" />
       <div className="absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
       <div className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 relative">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Our story</p>
           <h2 className="mt-3 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
