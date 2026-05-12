@@ -2,17 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ShieldCheck, MapPin, Sparkles, Users, CreditCard, Truck, Store,
-  ChevronRight, Star, Plus, Minus,
+  ChevronRight, Star, Plus, Minus, Scissors,
 } from "lucide-react";
 import { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { Blobs } from "../components/Blobs";
 import { Button } from "../components/Button";
+import { PaymentMethodsRow } from "../components/PaymentIcons";
 import heroImg from "../assets/hero-tailor.jpg";
 import showcase1 from "../assets/showcase-1.jpg";
 import showcase2 from "../assets/showcase-2.jpg";
 import showcase3 from "../assets/showcase-3.jpg";
+import stressRelief from "../assets/stress-relief.jpg";
+import story1 from "../assets/story-1.jpg";
+import story2 from "../assets/story-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
