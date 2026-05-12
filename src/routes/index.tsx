@@ -219,7 +219,7 @@ function Features() {
               transition={{ ...fadeUp.transition, delay: i * 0.06 }}
               className="group relative overflow-hidden rounded-3xl border border-border bg-card/80 p-7 shadow-soft backdrop-blur transition-all hover:-translate-y-1 hover:shadow-elegant"
             >
-              <span className="bg-numeral absolute -right-2 -top-10 select-none">{i + 1}</span>
+              <span className="bg-numeral absolute right-4 top-4 select-none">{i + 1}</span>
               <div className="relative">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary text-primary-foreground shadow-glow">
                   <it.icon size={22} />
