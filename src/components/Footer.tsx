@@ -16,10 +16,6 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               Custom tailoring without the stress. Verified tailors, secure payment and end-to-end order tracking.
             </p>
-            <div className="mt-6">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Payment methods</p>
-              <PaymentMethodsRow />
-            </div>
           </div>
           {cols.map((c) => (
             <div key={c.title}>
