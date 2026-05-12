@@ -161,15 +161,14 @@ function SayGoodbye() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 1.4, duration: 0.4 }}
-                    transform="translate(360 34) rotate(20)"
+                    transform="translate(358 34) rotate(20)"
                   >
-                    {/* Needle eye */}
-                    <ellipse cx="2" cy="0" rx="4" ry="3" fill="none" stroke="currentColor" className="text-primary" strokeWidth="1.5" />
-                    <line x1="2" y1="-1.2" x2="2" y2="1.2" stroke="currentColor" className="text-primary" strokeWidth="1.2" />
+                    {/* Needle eye — thread passes through here */}
+                    <ellipse cx="0" cy="0" rx="4.5" ry="3" fill="none" stroke="currentColor" className="text-primary" strokeWidth="1.5" />
                     {/* Needle shaft */}
-                    <line x1="6" y1="0" x2="44" y2="0" stroke="currentColor" className="text-primary" strokeWidth="2.2" strokeLinecap="round" />
+                    <line x1="4.5" y1="0" x2="46" y2="0" stroke="currentColor" className="text-primary" strokeWidth="2.2" strokeLinecap="round" />
                     {/* Sharp tip */}
-                    <polygon points="44,-2 50,0 44,2" fill="currentColor" className="text-primary" />
+                    <polygon points="46,-2 52,0 46,2" fill="currentColor" className="text-primary" />
                   </motion.g>
                 </svg>
               </span>
