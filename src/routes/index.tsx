@@ -272,8 +272,9 @@ function Showcase() {
     { img: showcase1, name: "Amaka Okafor", spec: "Couture & alterations", rating: 4.8, price: "from $95" },
   ];
   return (
-    <section id="showcase" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="showcase" className="relative overflow-hidden py-24 sm:py-32">
+      <Blobs />
+      <div className="mx-auto max-w-7xl px-6 relative">
         <motion.div {...fadeUp} className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-accent">Master tailors</p>
