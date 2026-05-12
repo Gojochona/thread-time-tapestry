@@ -133,7 +133,46 @@ function SayGoodbye() {
             <h2 className="mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
               Say goodbye to
               <br />
-              <span className="text-gradient-accent italic">tailoring stress.</span>
+              <span className="relative inline-block">
+                <span className="text-gradient-accent italic">tailoring stress.</span>
+                {/* Sewing thread + needle overlay */}
+                <svg
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -left-4 right-0 top-1/2 h-[60px] w-[112%] -translate-y-1/2 overflow-visible"
+                  viewBox="0 0 400 60"
+                  fill="none"
+                  preserveAspectRatio="none"
+                >
+                  <motion.path
+                    d="M2 38 C 50 8, 110 58, 170 30 S 290 6, 360 34"
+                    stroke="currentColor"
+                    className="text-accent"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeDasharray="6 5"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.6, ease: "easeInOut" }}
+                  />
+                  {/* Needle attached at the end of the thread */}
+                  <motion.g
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1.4, duration: 0.4 }}
+                    transform="translate(360 34) rotate(20)"
+                  >
+                    {/* Needle eye */}
+                    <ellipse cx="2" cy="0" rx="4" ry="3" fill="none" stroke="currentColor" className="text-primary" strokeWidth="1.5" />
+                    <line x1="2" y1="-1.2" x2="2" y2="1.2" stroke="currentColor" className="text-primary" strokeWidth="1.2" />
+                    {/* Needle shaft */}
+                    <line x1="6" y1="0" x2="44" y2="0" stroke="currentColor" className="text-primary" strokeWidth="2.2" strokeLinecap="round" />
+                    {/* Sharp tip */}
+                    <polygon points="44,-2 50,0 44,2" fill="currentColor" className="text-primary" />
+                  </motion.g>
+                </svg>
+              </span>
             </h2>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground">
               No more missed deadlines, mismatched fabrics or awkward fittings. i-sew brings the entire experience —
