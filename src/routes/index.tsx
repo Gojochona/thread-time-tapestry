@@ -473,8 +473,9 @@ function StorySection() {
 
 function PaymentsBand() {
   return (
-    <section className="relative py-16">
-      <div className="mx-auto max-w-5xl px-6 text-center">
+    <section className="relative overflow-hidden py-16">
+      <Blobs />
+      <div className="mx-auto max-w-5xl px-6 text-center relative">
         <motion.p {...fadeUp} className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
           <Scissors size={12} className="mr-2 inline -translate-y-px text-accent" />
           Secure checkout — pay your way
