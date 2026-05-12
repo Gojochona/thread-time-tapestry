@@ -17,6 +17,7 @@ import showcase3 from "../assets/showcase-3.jpg";
 import stressRelief from "../assets/stress-relief.jpg";
 import story1 from "../assets/story-1.jpg";
 import story2 from "../assets/story-2.jpg";
+import isewMark from "../assets/isew-mark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -201,6 +202,7 @@ function Features() {
   ];
   return (
     <section id="features" className="relative overflow-hidden py-24 sm:py-32">
+      <Blobs />
       <div className="absolute inset-0 -z-10 mesh-bg opacity-50" />
       <div className="mx-auto max-w-7xl px-6">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
@@ -218,7 +220,7 @@ function Features() {
               transition={{ ...fadeUp.transition, delay: i * 0.06 }}
               className="group relative overflow-hidden rounded-3xl border border-border bg-card/80 p-7 shadow-soft backdrop-blur transition-all hover:-translate-y-1 hover:shadow-elegant"
             >
-              <span className="bg-numeral absolute -right-2 -top-10 select-none">{i + 1}</span>
+              <span className="bg-numeral absolute right-4 top-4 select-none">{i + 1}</span>
               <div className="relative">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary text-primary-foreground shadow-glow">
                   <it.icon size={22} />
@@ -270,8 +272,9 @@ function Showcase() {
     { img: showcase1, name: "Amaka Okafor", spec: "Couture & alterations", rating: 4.8, price: "from $95" },
   ];
   return (
-    <section id="showcase" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="showcase" className="relative overflow-hidden py-24 sm:py-32">
+      <Blobs />
+      <div className="mx-auto max-w-7xl px-6 relative">
         <motion.div {...fadeUp} className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-accent">Master tailors</p>
@@ -404,10 +407,11 @@ function CTA() {
 function StorySection() {
   return (
     <section className="relative overflow-hidden py-24 sm:py-32 bg-cream">
+      <Blobs variant="rich" />
       <div className="absolute inset-0 -z-10 mesh-bg opacity-70" />
       <div className="absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
       <div className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 relative">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Our story</p>
           <h2 className="mt-3 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
@@ -421,28 +425,22 @@ function StorySection() {
           </p>
         </motion.div>
 
-        {/* Layered editorial composition with centered i-s emblem */}
-        <div className="relative mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4">
-          <motion.div {...fadeUp} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+        {/* 4-photo composition with centered i-sew emblem */}
+        <div className="relative mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-4 sm:gap-6">
+          <motion.div {...fadeUp} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={story1} alt="Master tailor at work" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={showcase2} alt="" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={story2} alt="" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="relative col-span-1 row-span-2 overflow-hidden rounded-3xl shadow-elegant">
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
             <img src={stressRelief} alt="" loading="lazy" className="h-full w-full object-cover" />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.2 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
-            <img src={showcase3} alt="" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.25 }} className="relative aspect-square overflow-hidden rounded-3xl shadow-soft">
-            <img src={showcase1} alt="" loading="lazy" className="h-full w-full object-cover" />
-          </motion.div>
 
-          {/* centered i-s emblem */}
+          {/* centered i-sew emblem */}
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
@@ -450,8 +448,8 @@ function StorySection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           >
-            <div className="stitch stitch-light flex h-24 w-24 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-elegant sm:h-28 sm:w-28">
-              <span className="font-display text-3xl italic font-bold">i-s</span>
+            <div className="stitch stitch-light flex h-28 w-28 items-center justify-center rounded-full bg-card shadow-elegant sm:h-36 sm:w-36">
+              <img src={isewMark} alt="i-sew" className="h-16 w-16 sm:h-20 sm:w-20 object-contain" />
             </div>
           </motion.div>
         </div>
@@ -475,8 +473,9 @@ function StorySection() {
 
 function PaymentsBand() {
   return (
-    <section className="relative py-16">
-      <div className="mx-auto max-w-5xl px-6 text-center">
+    <section className="relative overflow-hidden py-16">
+      <Blobs />
+      <div className="mx-auto max-w-5xl px-6 text-center relative">
         <motion.p {...fadeUp} className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
           <Scissors size={12} className="mr-2 inline -translate-y-px text-accent" />
           Secure checkout — pay your way
