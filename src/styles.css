@@ -169,13 +169,13 @@
     );
   }
 
-  /* Oversized faded background numerals */
+  /* Oversized faded background numerals — sized to sit inside cards */
   .bg-numeral {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(7rem, 18vw, 14rem);
+    font-size: clamp(3.5rem, 8vw, 6rem);
     line-height: 0.85;
-    color: color-mix(in oklab, var(--accent) 18%, transparent);
+    color: color-mix(in oklab, var(--primary) 8%, transparent);
     pointer-events: none;
     user-select: none;
   }
