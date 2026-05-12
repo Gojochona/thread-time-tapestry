@@ -1,5 +1,4 @@
 import { Logo } from "./Logo";
-import { PaymentMethodsRow } from "./PaymentIcons";
 
 export function Footer() {
   const cols = [
