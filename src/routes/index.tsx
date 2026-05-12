@@ -276,11 +276,20 @@ function Features() {
 }
 
 function HowItWorks() {
-  const steps = [
-    { n: "01", title: "Tell us your vision", desc: "Upload inspiration, choose a style and pick your fabric — we guide every choice." },
-    { n: "02", title: "Match with a tailor", desc: "Our system pairs you with a verified tailor that matches your style and budget." },
-    { n: "03", title: "Receive & enjoy", desc: "Track every stitch and approve the final piece before payment is released." },
-  ];
+  const flows = {
+    customers: [
+      { n: "01", title: "Tell us your vision", desc: "Upload inspiration, choose a style and pick your fabric — we guide every choice." },
+      { n: "02", title: "Match with a tailor", desc: "Our system pairs you with a verified tailor that matches your style and budget." },
+      { n: "03", title: "Receive & enjoy", desc: "Track every stitch and approve the final piece before payment is released." },
+    ],
+    tailors: [
+      { n: "01", title: "Create your studio", desc: "Set up your profile, showcase your craft and list your specialties in minutes." },
+      { n: "02", title: "Receive matched orders", desc: "We send you clients that fit your style, location and price range — no chasing." },
+      { n: "03", title: "Get paid securely", desc: "Funds are held in escrow and released the moment your work is approved." },
+    ],
+  } as const;
+  const [tab, setTab] = useState<"customers" | "tailors">("customers");
+  const steps = flows[tab];
   return (
     <section id="how" className="relative py-24 bg-primary text-primary-foreground overflow-hidden">
       <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(circle at 30% 20%, white, transparent 50%)" }} />
@@ -289,16 +298,47 @@ function HowItWorks() {
           <p className="text-sm font-semibold uppercase tracking-widest text-accent">How it works</p>
           <h2 className="mt-3 font-display text-4xl font-bold sm:text-5xl">From idea to wardrobe in three steps</h2>
         </motion.div>
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+
+        {/* Tab selector */}
+        <div className="mt-10 flex justify-center">
+          <div className="relative inline-flex rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur">
+            {(["customers", "tailors"] as const).map((key) => (
+              <button
+                key={key}
+                onClick={() => setTab(key)}
+                className={`relative z-10 rounded-full px-6 py-2 text-sm font-semibold capitalize transition-colors ${
+                  tab === key ? "text-primary" : "text-primary-foreground/80 hover:text-primary-foreground"
+                }`}
+              >
+                {tab === key && (
+                  <motion.span
+                    layoutId="how-tab-pill"
+                    className="absolute inset-0 -z-10 rounded-full bg-accent"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
+                For {key}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <motion.div
+          key={tab}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mt-12 grid gap-8 md:grid-cols-3"
+        >
           {steps.map((s, i) => (
-            <motion.div key={s.n} {...fadeUp} transition={{ ...fadeUp.transition, delay: i * 0.1 }}
+            <motion.div key={s.n} {...fadeUp} transition={{ ...fadeUp.transition, delay: i * 0.08 }}
               className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur transition-all hover:bg-white/10">
               <div className="font-display text-6xl font-bold text-accent/80">{s.n}</div>
               <h3 className="mt-4 font-display text-2xl font-semibold">{s.title}</h3>
               <p className="mt-3 text-sm text-primary-foreground/70">{s.desc}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
