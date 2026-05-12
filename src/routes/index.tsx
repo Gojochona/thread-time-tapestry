@@ -120,35 +120,112 @@ function Hero() {
   );
 }
 
+function SayGoodbye() {
+  return (
+    <section className="relative overflow-hidden py-24 sm:py-32">
+      <Blobs />
+      <div className="absolute inset-0 -z-10 mesh-bg opacity-60" />
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
+          <motion.div {...fadeUp}>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">A new era of bespoke</p>
+            <h2 className="mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+              Say goodbye to
+              <br />
+              <span className="text-gradient-accent italic">tailoring stress.</span>
+            </h2>
+            <p className="mt-6 max-w-lg text-lg text-muted-foreground">
+              No more missed deadlines, mismatched fabrics or awkward fittings. i-sew brings the entire experience —
+              from inspiration to final stitch — into one calm, beautifully orchestrated journey.
+            </p>
+            <div className="mt-8 grid max-w-md gap-4 sm:grid-cols-2">
+              {[
+                { k: "Zero", v: "missed deadlines" },
+                { k: "100%", v: "verified tailors" },
+                { k: "Escrow", v: "secured payments" },
+                { k: "14 days", v: "free re-tailoring" },
+              ].map((s) => (
+                <div key={s.v} className="rounded-2xl border border-border bg-card/70 p-4 backdrop-blur">
+                  <div className="font-display text-2xl font-bold text-gradient">{s.k}</div>
+                  <div className="text-xs text-muted-foreground">{s.v}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Editorial layered photo composition */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative mx-auto h-[520px] w-full max-w-md"
+          >
+            <div className="absolute left-2 top-6 h-72 w-52 -rotate-6 overflow-hidden rounded-[2rem] shadow-elegant">
+              <img src={showcase1} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <span className="tape -top-2 left-6 -rotate-6" />
+            </div>
+            <div className="absolute right-0 top-0 h-80 w-56 rotate-3 overflow-hidden rounded-[2rem] shadow-elegant">
+              <img src={stressRelief} alt="Calm tailoring experience" className="h-full w-full object-cover" loading="lazy" />
+              <span className="tape -top-2 right-6 rotate-6" />
+            </div>
+            <div className="absolute bottom-0 left-1/2 h-64 w-56 -translate-x-1/2 rotate-1 overflow-hidden rounded-[2rem] shadow-elegant">
+              <img src={story2} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <span className="tape -top-2 left-1/2 -translate-x-1/2 -rotate-2" />
+            </div>
+            <div className="float glass absolute -right-2 bottom-12 rounded-2xl p-3">
+              <div className="flex items-center gap-2">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full gradient-accent text-primary">
+                  <Sparkles size={16} />
+                </div>
+                <div className="text-xs">
+                  <div className="font-semibold">Stress-free</div>
+                  <div className="text-muted-foreground">end-to-end</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Features() {
   const items = [
     { icon: Users, title: "Find trusted tailors", desc: "Hand-vetted master craftsmen rated by real customers." },
+    { icon: ShieldCheck, title: "Already know a tailor?", desc: "Invite yours and run the entire order through i-sew." },
     { icon: CreditCard, title: "Pay with confidence", desc: "Funds held in escrow until you approve the finished piece." },
-    { icon: Truck, title: "Track every step", desc: "Real-time updates from measurement to final stitch." },
+    { icon: Truck, title: "Trace every step", desc: "Real-time updates from measurement to final stitch." },
     { icon: Store, title: "Fabric marketplace", desc: "Curated textiles delivered straight to your tailor." },
   ];
   return (
-    <section id="features" className="relative py-24 sm:py-32">
+    <section id="features" className="relative overflow-hidden py-24 sm:py-32">
+      <div className="absolute inset-0 -z-10 mesh-bg opacity-50" />
       <div className="mx-auto max-w-7xl px-6">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-accent">Everything you need</p>
-          <h2 className="mt-3 font-display text-4xl font-bold sm:text-5xl">All in one place</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">Everything you need</p>
+          <h2 className="mt-3 font-display text-5xl font-bold sm:text-6xl">
+            All in <span className="text-gradient-accent italic">one place</span>
+          </h2>
           <p className="mt-4 text-muted-foreground">A focused toolkit for ordering bespoke without the back-and-forth.</p>
         </motion.div>
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <motion.div
               key={it.title}
               {...fadeUp}
               transition={{ ...fadeUp.transition, delay: i * 0.06 }}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-7 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elegant"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card/80 p-7 shadow-soft backdrop-blur transition-all hover:-translate-y-1 hover:shadow-elegant"
             >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary text-primary-foreground shadow-glow">
-                <it.icon size={22} />
+              <span className="bg-numeral absolute -right-2 -top-10 select-none">{i + 1}</span>
+              <div className="relative">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary text-primary-foreground shadow-glow">
+                  <it.icon size={22} />
+                </div>
+                <h3 className="font-display text-2xl font-semibold">{it.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
               </div>
-              <h3 className="font-display text-xl font-semibold">{it.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
-              <div className="absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
             </motion.div>
           ))}
         </div>
