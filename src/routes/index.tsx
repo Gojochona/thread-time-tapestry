@@ -17,6 +17,7 @@ import showcase3 from "../assets/showcase-3.jpg";
 import stressRelief from "../assets/stress-relief.jpg";
 import story1 from "../assets/story-1.jpg";
 import story2 from "../assets/story-2.jpg";
+import isewMark from "../assets/isew-mark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
