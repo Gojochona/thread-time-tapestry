@@ -21,6 +21,7 @@ import { Route as DashboardDashboardOrdersRouteImport } from './routes/_dashboar
 import { Route as DashboardDashboardExploreRouteImport } from './routes/_dashboard/dashboard.explore'
 import { Route as DashboardDashboardCreateRouteImport } from './routes/_dashboard/dashboard.create'
 import { Route as DashboardDashboardOrdersOrderIdRouteImport } from './routes/_dashboard/dashboard.orders.$orderId'
+import { Route as DashboardDashboardOrdersOrderIdPayRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.pay'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -88,6 +89,12 @@ const DashboardDashboardOrdersOrderIdRoute =
     path: '/$orderId',
     getParentRoute: () => DashboardDashboardOrdersRoute,
   } as any)
+const DashboardDashboardOrdersOrderIdPayRoute =
+  DashboardDashboardOrdersOrderIdPayRouteImport.update({
+    id: '/pay',
+    path: '/pay',
+    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -100,7 +107,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/tailors': typeof DashboardDashboardTailorsRoute
   '/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/dashboard/': typeof DashboardDashboardIndexRoute
-  '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRoute
+  '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -113,7 +121,8 @@ export interface FileRoutesByTo {
   '/dashboard/tailors': typeof DashboardDashboardTailorsRoute
   '/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/dashboard': typeof DashboardDashboardIndexRoute
-  '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRoute
+  '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -128,7 +137,8 @@ export interface FileRoutesById {
   '/_dashboard/dashboard/tailors': typeof DashboardDashboardTailorsRoute
   '/_dashboard/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
-  '/_dashboard/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRoute
+  '/_dashboard/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/_dashboard/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/dashboard/wallet'
     | '/dashboard/'
     | '/dashboard/orders/$orderId'
+    | '/dashboard/orders/$orderId/pay'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/dashboard/wallet'
     | '/dashboard'
     | '/dashboard/orders/$orderId'
+    | '/dashboard/orders/$orderId/pay'
   id:
     | '__root__'
     | '/'
@@ -171,6 +183,7 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard/wallet'
     | '/_dashboard/dashboard/'
     | '/_dashboard/dashboard/orders/$orderId'
+    | '/_dashboard/dashboard/orders/$orderId/pay'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -266,16 +279,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardOrdersOrderIdRouteImport
       parentRoute: typeof DashboardDashboardOrdersRoute
     }
+    '/_dashboard/dashboard/orders/$orderId/pay': {
+      id: '/_dashboard/dashboard/orders/$orderId/pay'
+      path: '/pay'
+      fullPath: '/dashboard/orders/$orderId/pay'
+      preLoaderRoute: typeof DashboardDashboardOrdersOrderIdPayRouteImport
+      parentRoute: typeof DashboardDashboardOrdersOrderIdRoute
+    }
   }
 }
 
+interface DashboardDashboardOrdersOrderIdRouteChildren {
+  DashboardDashboardOrdersOrderIdPayRoute: typeof DashboardDashboardOrdersOrderIdPayRoute
+}
+
+const DashboardDashboardOrdersOrderIdRouteChildren: DashboardDashboardOrdersOrderIdRouteChildren =
+  {
+    DashboardDashboardOrdersOrderIdPayRoute:
+      DashboardDashboardOrdersOrderIdPayRoute,
+  }
+
+const DashboardDashboardOrdersOrderIdRouteWithChildren =
+  DashboardDashboardOrdersOrderIdRoute._addFileChildren(
+    DashboardDashboardOrdersOrderIdRouteChildren,
+  )
+
 interface DashboardDashboardOrdersRouteChildren {
-  DashboardDashboardOrdersOrderIdRoute: typeof DashboardDashboardOrdersOrderIdRoute
+  DashboardDashboardOrdersOrderIdRoute: typeof DashboardDashboardOrdersOrderIdRouteWithChildren
 }
 
 const DashboardDashboardOrdersRouteChildren: DashboardDashboardOrdersRouteChildren =
   {
-    DashboardDashboardOrdersOrderIdRoute: DashboardDashboardOrdersOrderIdRoute,
+    DashboardDashboardOrdersOrderIdRoute:
+      DashboardDashboardOrdersOrderIdRouteWithChildren,
   }
 
 const DashboardDashboardOrdersRouteWithChildren =
