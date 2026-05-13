@@ -21,7 +21,9 @@ import { Route as DashboardDashboardOrdersRouteImport } from './routes/_dashboar
 import { Route as DashboardDashboardExploreRouteImport } from './routes/_dashboard/dashboard.explore'
 import { Route as DashboardDashboardCreateRouteImport } from './routes/_dashboard/dashboard.create'
 import { Route as DashboardDashboardOrdersOrderIdRouteImport } from './routes/_dashboard/dashboard.orders.$orderId'
+import { Route as DashboardDashboardOrdersOrderIdSuccessRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.success'
 import { Route as DashboardDashboardOrdersOrderIdPayRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.pay'
+import { Route as DashboardDashboardOrdersOrderIdDetailRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.detail'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -89,10 +91,22 @@ const DashboardDashboardOrdersOrderIdRoute =
     path: '/$orderId',
     getParentRoute: () => DashboardDashboardOrdersRoute,
   } as any)
+const DashboardDashboardOrdersOrderIdSuccessRoute =
+  DashboardDashboardOrdersOrderIdSuccessRouteImport.update({
+    id: '/success',
+    path: '/success',
+    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
+  } as any)
 const DashboardDashboardOrdersOrderIdPayRoute =
   DashboardDashboardOrdersOrderIdPayRouteImport.update({
     id: '/pay',
     path: '/pay',
+    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
+  } as any)
+const DashboardDashboardOrdersOrderIdDetailRoute =
+  DashboardDashboardOrdersOrderIdDetailRouteImport.update({
+    id: '/detail',
+    path: '/detail',
     getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
   } as any)
 
@@ -108,7 +122,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/dashboard/': typeof DashboardDashboardIndexRoute
   '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/dashboard/orders/$orderId/detail': typeof DashboardDashboardOrdersOrderIdDetailRoute
   '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
+  '/dashboard/orders/$orderId/success': typeof DashboardDashboardOrdersOrderIdSuccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -122,7 +138,9 @@ export interface FileRoutesByTo {
   '/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/dashboard': typeof DashboardDashboardIndexRoute
   '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/dashboard/orders/$orderId/detail': typeof DashboardDashboardOrdersOrderIdDetailRoute
   '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
+  '/dashboard/orders/$orderId/success': typeof DashboardDashboardOrdersOrderIdSuccessRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -138,7 +156,9 @@ export interface FileRoutesById {
   '/_dashboard/dashboard/wallet': typeof DashboardDashboardWalletRoute
   '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
   '/_dashboard/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/_dashboard/dashboard/orders/$orderId/detail': typeof DashboardDashboardOrdersOrderIdDetailRoute
   '/_dashboard/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
+  '/_dashboard/dashboard/orders/$orderId/success': typeof DashboardDashboardOrdersOrderIdSuccessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -154,7 +174,9 @@ export interface FileRouteTypes {
     | '/dashboard/wallet'
     | '/dashboard/'
     | '/dashboard/orders/$orderId'
+    | '/dashboard/orders/$orderId/detail'
     | '/dashboard/orders/$orderId/pay'
+    | '/dashboard/orders/$orderId/success'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -168,7 +190,9 @@ export interface FileRouteTypes {
     | '/dashboard/wallet'
     | '/dashboard'
     | '/dashboard/orders/$orderId'
+    | '/dashboard/orders/$orderId/detail'
     | '/dashboard/orders/$orderId/pay'
+    | '/dashboard/orders/$orderId/success'
   id:
     | '__root__'
     | '/'
@@ -183,7 +207,9 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard/wallet'
     | '/_dashboard/dashboard/'
     | '/_dashboard/dashboard/orders/$orderId'
+    | '/_dashboard/dashboard/orders/$orderId/detail'
     | '/_dashboard/dashboard/orders/$orderId/pay'
+    | '/_dashboard/dashboard/orders/$orderId/success'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -279,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardOrdersOrderIdRouteImport
       parentRoute: typeof DashboardDashboardOrdersRoute
     }
+    '/_dashboard/dashboard/orders/$orderId/success': {
+      id: '/_dashboard/dashboard/orders/$orderId/success'
+      path: '/success'
+      fullPath: '/dashboard/orders/$orderId/success'
+      preLoaderRoute: typeof DashboardDashboardOrdersOrderIdSuccessRouteImport
+      parentRoute: typeof DashboardDashboardOrdersOrderIdRoute
+    }
     '/_dashboard/dashboard/orders/$orderId/pay': {
       id: '/_dashboard/dashboard/orders/$orderId/pay'
       path: '/pay'
@@ -286,17 +319,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardOrdersOrderIdPayRouteImport
       parentRoute: typeof DashboardDashboardOrdersOrderIdRoute
     }
+    '/_dashboard/dashboard/orders/$orderId/detail': {
+      id: '/_dashboard/dashboard/orders/$orderId/detail'
+      path: '/detail'
+      fullPath: '/dashboard/orders/$orderId/detail'
+      preLoaderRoute: typeof DashboardDashboardOrdersOrderIdDetailRouteImport
+      parentRoute: typeof DashboardDashboardOrdersOrderIdRoute
+    }
   }
 }
 
 interface DashboardDashboardOrdersOrderIdRouteChildren {
+  DashboardDashboardOrdersOrderIdDetailRoute: typeof DashboardDashboardOrdersOrderIdDetailRoute
   DashboardDashboardOrdersOrderIdPayRoute: typeof DashboardDashboardOrdersOrderIdPayRoute
+  DashboardDashboardOrdersOrderIdSuccessRoute: typeof DashboardDashboardOrdersOrderIdSuccessRoute
 }
 
 const DashboardDashboardOrdersOrderIdRouteChildren: DashboardDashboardOrdersOrderIdRouteChildren =
   {
+    DashboardDashboardOrdersOrderIdDetailRoute:
+      DashboardDashboardOrdersOrderIdDetailRoute,
     DashboardDashboardOrdersOrderIdPayRoute:
       DashboardDashboardOrdersOrderIdPayRoute,
+    DashboardDashboardOrdersOrderIdSuccessRoute:
+      DashboardDashboardOrdersOrderIdSuccessRoute,
   }
 
 const DashboardDashboardOrdersOrderIdRouteWithChildren =

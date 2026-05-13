@@ -1,12 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Paperclip, Mic, Send, FileText, Download, Info, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Paperclip, Mic, Send, FileText, Download, Info, ChevronRight, X } from "lucide-react";
 import { Modal } from "../../components/modals/Modal";
+import { StatusNotificationPill } from "../../components/StatusNotificationPill";
 
 type Msg =
   | { id: string; from: "me" | "them"; text: string; time: string }
-  | { id: string; from: "them"; file: { name: string }; time: string };
+  | { id: string; from: "them"; file: { name: string }; time: string }
+  | { id: string; type: "status"; notification: string; time: string };
 
 const INITIAL: Msg[] = [
   { id: "1", from: "me", text: "Pls as soon as you confirm you're okay with the request let me know how soon it can be ready.", time: "09:41 am" },
@@ -17,6 +19,7 @@ const INITIAL: Msg[] = [
   { id: "6", from: "them", text: "Well, that should do it.", time: "09:41 am" },
   { id: "7", from: "them", text: "I'll confirm your order now so you can make payment.", time: "09:41 am" },
   { id: "8", from: "me", text: "Alright then thank you.", time: "09:41 am" },
+  { id: "9", type: "status", notification: "Cutting completed", time: "09:41 am" } as any,
 ];
 
 function OrderChatPage() {
@@ -55,8 +58,9 @@ function OrderChatPage() {
 
       {/* Order banner */}
       <div className="px-4 pt-4">
-        <button
-          onClick={() => setSummaryOpen(true)}
+        <Link
+          to="/dashboard/orders/$orderId/detail"
+          params={{ orderId }}
           className={`flex w-full items-stretch gap-2 rounded-2xl p-1 text-left transition-colors ${
             confirmed ? "bg-accent/40" : "bg-muted"
           }`}
@@ -78,7 +82,7 @@ function OrderChatPage() {
               View order <ChevronRight size={14} />
             </div>
           </div>
-        </button>
+        </Link>
 
         {/* CTA / status */}
         {confirmed ? (
@@ -107,6 +111,19 @@ function OrderChatPage() {
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
         {messages.map((m: any) => {
+          if (m.type === "status") {
+            return (
+              <motion.div
+                key={m.id}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex justify-center"
+              >
+                <StatusNotificationPill text={m.notification} type="success" icon="check" />
+              </motion.div>
+            );
+          }
+
           const mine = m.from === "me";
           return (
             <motion.div
