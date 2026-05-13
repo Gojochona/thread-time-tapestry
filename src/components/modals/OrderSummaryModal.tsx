@@ -1,92 +1,113 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
-import { Check, MapPin, Calendar, Scissors, Pencil } from "lucide-react";
+import { CheckCircle2, ArrowRight, Edit3 } from "lucide-react";
 
 export function OrderSummaryModal({ open, onClose, order, onEdit, onSend }: any) {
+  const [budget, setBudget] = useState("");
+  const [orderName, setOrderName] = useState("");
+  const [fabric, setFabric] = useState("");
+
   if (!order) return null;
+
+  const canSend = budget && orderName && fabric;
+
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title="Review your order"
-      size="lg"
-      footer={
-        <div className="flex flex-col-reverse gap-3 sm:flex-row">
-          <Button variant="outline" className="flex-1" onClick={onEdit}>
-            <Pencil size={14} /> Edit details
-          </Button>
-          <Button variant="primary" className="flex-1" onClick={onSend}>Send order</Button>
+    <Modal open={open} onClose={onClose} size="md">
+      {/* Tailor header */}
+      <div className="flex items-start gap-3">
+        <img
+          src={order.tailor?.avatar ?? "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=70"}
+          alt=""
+          className="h-12 w-12 rounded-full object-cover"
+        />
+        <div className="min-w-0 flex-1">
+          <div className="font-display text-base font-bold">{order.tailor?.name ?? "Selected tailor"}</div>
+          <div className="text-sm text-primary">{order.tailor?.shop ?? "Verified by i-sew"}</div>
         </div>
-      }
-    >
-      <div className="flex flex-col items-center text-center">
-        <motion.div
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-success/15 text-success"
+        <div className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+          verified <CheckCircle2 size={14} className="text-primary" />
+        </div>
+      </div>
+
+      {/* Style summary */}
+      <div className="mt-5 flex items-center gap-3 rounded-2xl bg-muted/60 p-3">
+        <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-accent/40 to-primary/30" />
+        <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-muted to-secondary" />
+        <div className="min-w-0 flex-1">
+          <div className="text-xs font-semibold">Styles</div>
+          <p className="truncate text-xs text-muted-foreground">{order.styles}</p>
+        </div>
+        <button onClick={onEdit} className="rounded-full p-2 text-muted-foreground hover:bg-card">
+          <Edit3 size={14} />
+        </button>
+      </div>
+
+      {/* Price */}
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-4 rounded-2xl border-2 border-accent bg-card py-3 text-center"
+      >
+        <span className="text-sm text-muted-foreground">from </span>
+        <span className="font-display text-lg font-bold text-primary">
+          NGN {order.price.toLocaleString()}.00
+        </span>
+      </motion.div>
+
+      {/* Budget */}
+      <div className="mt-5">
+        <label className="mb-1.5 block text-sm font-medium">What's your budget?</label>
+        <div className="flex h-12 items-center rounded-xl border-2 border-primary/40 bg-card px-4 focus-within:ring-2 focus-within:ring-ring/30">
+          <span className="text-sm font-semibold text-primary">NGN</span>
+          <input
+            value={budget}
+            onChange={(e) => setBudget(e.target.value.replace(/[^\d,]/g, ""))}
+            placeholder=""
+            className="ml-2 w-full bg-transparent text-sm focus:outline-none"
+          />
+        </div>
+      </div>
+
+      {/* Order name */}
+      <div className="mt-4">
+        <label className="mb-1.5 block text-sm font-medium">Create a name for this order</label>
+        <input
+          value={orderName}
+          onChange={(e) => setOrderName(e.target.value)}
+          className="h-12 w-full rounded-xl border-2 border-primary/40 bg-card px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring/30"
+        />
+      </div>
+
+      {/* Fabric provision */}
+      <div className="mt-4">
+        <label className="mb-1.5 block text-sm font-medium">Fabric provision</label>
+        <select
+          value={fabric}
+          onChange={(e) => setFabric(e.target.value)}
+          className={`h-12 w-full rounded-xl border bg-card px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring/30 ${
+            fabric ? "border-border" : "border-border text-muted-foreground"
+          }`}
         >
-          <Check size={28} />
-        </motion.div>
-        <h3 className="mt-3 font-display text-lg font-semibold">Almost ready</h3>
-        <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-          Confirm the details below — we'll send this to your tailor for approval.
-        </p>
+          <option value="">Select an option</option>
+          <option value="self">I'll provide fabric</option>
+          <option value="tailor">Tailor provides fabric</option>
+        </select>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-border bg-card p-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary text-sm font-bold text-primary-foreground">
-            {order.tailor?.initials ?? "T"}
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="text-sm font-semibold">{order.tailor?.name ?? "—"}</div>
-            <div className="text-xs text-muted-foreground">{order.tailor?.shop ?? "Selected tailor"}</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <Row icon={Scissors} label="Outfit" value={`${order.category} · ${order.gender}`} />
-        <Row icon={Calendar} label="Timeline" value={order.timeline} />
-        <Row icon={MapPin} label="Location" value={order.location} />
-        <Row icon={Pencil} label="Fabric" value={order.fabric} />
-      </div>
-
-      <div className="mt-3 rounded-2xl border border-border bg-muted/40 p-4">
-        <div className="text-xs font-semibold uppercase text-muted-foreground">Style attributes</div>
-        <p className="mt-1 text-sm">{order.styles}</p>
-      </div>
-
-      {order.notes && (
-        <div className="mt-3 rounded-2xl border border-border bg-card p-4">
-          <div className="text-xs font-semibold uppercase text-muted-foreground">Additional notes</div>
-          <p className="mt-1 text-sm text-foreground/80">{order.notes}</p>
-        </div>
-      )}
-
-      <div className="mt-4 flex items-center justify-between rounded-2xl border border-primary/20 bg-primary/5 p-4">
-        <div>
-          <div className="text-xs text-muted-foreground">Estimated total</div>
-          <div className="font-display text-xl font-bold text-primary">NGN {order.price.toLocaleString()}</div>
-        </div>
-        <div className="text-right text-xs text-muted-foreground">
-          Final price set<br />after tailor review
-        </div>
-      </div>
+      {/* Send button */}
+      <button
+        onClick={() => canSend && onSend?.({ budget, orderName, fabric })}
+        disabled={!canSend}
+        className={`mt-6 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed py-3.5 font-semibold transition-all ${
+          canSend
+            ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+            : "border-primary/40 bg-primary/40 text-primary-foreground/80 cursor-not-allowed"
+        }`}
+      >
+        Send order <ArrowRight size={16} />
+      </button>
     </Modal>
-  );
-}
-
-function Row({ icon: Icon, label, value }: any) {
-  return (
-    <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-muted text-primary"><Icon size={16} /></div>
-      <div className="min-w-0">
-        <div className="text-[11px] text-muted-foreground">{label}</div>
-        <div className="truncate text-sm font-semibold">{value}</div>
-      </div>
-    </div>
   );
 }
