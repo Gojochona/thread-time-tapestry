@@ -213,7 +213,7 @@ function OrderDetailPage() {
           </div>
 
           {/* Style reference */}
-          <div className="mt-4 border-t border-blue-100 pt-4">
+          <div className="mt-4 border-t border-border pt-4">
             <p className="mb-3 text-xs font-semibold text-muted-foreground">Style reference</p>
             <div className="flex items-center gap-2">
               {order.styleReference.map((ref: string, i: number) => (
@@ -223,7 +223,7 @@ function OrderDetailPage() {
                   style={{ backgroundImage: `url('${ref}')` }}
                 />
               ))}
-              <button className="text-xs font-semibold text-blue-500">change</button>
+              <button className="text-xs font-semibold text-primary">change</button>
             </div>
           </div>
         </div>
@@ -293,6 +293,6 @@ function OrderDetailPage() {
   );
 }
 
-export const Route = createFileRoute("/_dashboard/dashboard/orders/$orderId/detail")({
+export const Route = createFileRoute("/_dashboard/dashboard.orders.$orderId.detail")({
   component: OrderDetailPage,
 });

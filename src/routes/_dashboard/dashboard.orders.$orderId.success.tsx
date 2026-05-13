@@ -100,6 +100,6 @@ function SuccessPage() {
   );
 }
 
-export const Route = createFileRoute("/_dashboard/dashboard/orders/$orderId/success")({
+export const Route = createFileRoute("/_dashboard/dashboard.orders.$orderId.success")({
   component: SuccessPage,
 });

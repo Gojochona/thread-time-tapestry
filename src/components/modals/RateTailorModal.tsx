@@ -51,7 +51,7 @@ export function RateTailorModal({ open, onClose, tailor, onSubmit }: any) {
                   size={32}
                   className={`transition-colors ${
                     rating && rating >= star
-                      ? "fill-amber-400 text-amber-400"
+                      ? "fill-accent text-accent"
                       : "text-muted-foreground/30"
                   }`}
                 />
