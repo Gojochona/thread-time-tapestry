@@ -25,8 +25,6 @@ import { Route as DashboardDashboardOrdersOrderIdRateRouteImport } from './route
 import { Route as DashboardDashboardOrdersOrderIdPayRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.pay'
 import { Route as DashboardDashboardOrdersOrderIdFabricRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.fabric'
 import { Route as DashboardDashboardOrdersOrderIdAcknowledgeRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.acknowledge'
-import { Route as DashboardDashboardOrdersOrderIdRateRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.rate'
-import { Route as DashboardDashboardOrdersOrderIdAcknowledgeRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.acknowledge'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -110,6 +108,18 @@ const DashboardDashboardOrdersOrderIdFabricRoute =
   DashboardDashboardOrdersOrderIdFabricRouteImport.update({
     id: '/fabric',
     path: '/fabric',
+    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
+  } as any)
+const DashboardDashboardOrdersOrderIdAcknowledgeRoute =
+  DashboardDashboardOrdersOrderIdAcknowledgeRouteImport.update({
+    id: '/acknowledge',
+    path: '/acknowledge',
+    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
+  } as any)
+const DashboardDashboardOrdersOrderIdRateRoute =
+  DashboardDashboardOrdersOrderIdRateRouteImport.update({
+    id: '/rate',
+    path: '/rate',
     getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
   } as any)
 const DashboardDashboardOrdersOrderIdAcknowledgeRoute =
