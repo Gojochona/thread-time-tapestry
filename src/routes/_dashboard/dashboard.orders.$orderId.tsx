@@ -1,13 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Paperclip, Mic, Send, FileText, Download, Info, ChevronRight, X, Clock, MessageSquare } from "lucide-react";
+import { ArrowLeft, ArrowRight, Paperclip, Mic, Send, FileText, Download, Info, ChevronRight, X, Clock, MessageSquare, CheckCircle2, Star } from "lucide-react";
 import { Modal } from "../../components/modals/Modal";
-import { getStage, setStage, type Stage } from "../../lib/orderStage";
+import { getStage, setStage, getRated, type Stage } from "../../lib/orderStage";
 
 type Msg =
   | { id: string; from: "me" | "them"; text: string; time: string }
-  | { id: string; from: "them"; file: { name: string }; time: string };
+  | { id: string; from: "them"; file: { name: string }; time: string }
+  | { id: string; from: "them"; milestone: { label: string; images: string[] }; time: string };
 
 const INITIAL: Msg[] = [
   { id: "1", from: "me", text: "Pls as soon as you confirm you're okay with the request let me know how soon it can be ready.", time: "09:41 am" },
@@ -24,14 +25,39 @@ const FABRIC_MSGS: Msg[] = [
   { id: "f1", from: "them", text: "Hello, I've been notified of the payment. When will the fabrics be delivered?", time: "09:41 am" },
   { id: "f2", from: "me", text: "Pls confirm delivery address", time: "09:41 am" },
   { id: "f3", from: "them", text: "32 Gibbons Estate Shoms, Lagos.", time: "09:41 am" },
-  { id: "f4", from: "me", text: "I'' send it now", time: "09:41 am" },
+  { id: "f4", from: "me", text: "I'll send it now", time: "09:41 am" },
   { id: "f5", from: "them", text: "Alright I'll be expecting", time: "09:41 am" },
 ];
 
 const STARTED_MSGS: Msg[] = [
   { id: "s1", from: "me", text: "Hi can you confirm you've received the fabrics?", time: "09:41 am" },
   { id: "s2", from: "them", text: "Just did. Work will start right away", time: "09:41 am" },
-  { id: "s3", from: "me", text: "Great! Looking forward", time: "09:41 am" },
+  { id: "s3", from: "me", text: "Hi there, how's the work coming along?", time: "09:41 am" },
+  { id: "s4", from: "them", text: "Hi there\nIt's going fine. It's 50% done and should be ready in the next couple of days", time: "09:41 am" },
+  { id: "s5", from: "me", text: "Okay but the milestone is still showing you're in cutting stage", time: "09:41 am" },
+  { id: "s6", from: "them", text: "Yes that's because I've been busy. I'll update it in a moment", time: "09:41 am" },
+];
+
+const CUTTING_MSG: Msg = {
+  id: "c1", from: "them", time: "09:41 am",
+  milestone: {
+    label: "Cutting completed",
+    images: [
+      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=70",
+      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=70&sat=-30",
+    ],
+  },
+} as any;
+
+const DELIVERY_MSGS: Msg[] = [
+  { id: "d1", from: "them", text: "Coming through. Pls confirm delivery address", time: "09:41 am" },
+  { id: "d2", from: "me", text: "Looks great! Exactly as I imagined🥰", time: "09:41 am" },
+  { id: "d3", from: "me", text: "17 Koffi street, Lagos", time: "09:41 am" },
+  { id: "d4", from: "them", text: "I'm glad you like it", time: "09:41 am" },
+  { id: "d5", from: "them", text: "Will be sending now", time: "09:41 am" },
+  { id: "d6", from: "me", text: "Okay", time: "09:41 am" },
+  { id: "d7", from: "them", text: "Dispatch notified me you've received the parcel. Kindly mark the order as complete and rate me pls", time: "09:41 am" },
+  { id: "d8", from: "me", text: "That's right I really love the dress. I'll do that now", time: "09:41 am" },
 ];
 
 function OrderChatPage() {
@@ -44,7 +70,6 @@ function OrderChatPage() {
   const [showStartedBanner, setShowStartedBanner] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Hydrate stage from store + listen for changes (e.g. payment success)
   useEffect(() => {
     setStageState(getStage(orderId));
     const onStage = (e: any) => {
@@ -54,12 +79,13 @@ function OrderChatPage() {
     return () => window.removeEventListener("order-stage", onStage);
   }, [orderId]);
 
-  // Append stage-specific messages as the order progresses
   useEffect(() => {
     setMessages(() => {
       const base = [...INITIAL];
       if (stage === "awaiting_fabric" || stage === "fabric_sent") return [...base, ...FABRIC_MSGS];
-      if (stage === "work_started" || stage === "completed") return [...base, ...FABRIC_MSGS, ...STARTED_MSGS];
+      if (stage === "work_started") return [...base, ...FABRIC_MSGS, ...STARTED_MSGS];
+      if (stage === "cutting_done") return [...base, ...FABRIC_MSGS, ...STARTED_MSGS, CUTTING_MSG];
+      if (stage === "ready_for_ack" || stage === "closed") return [...base, ...FABRIC_MSGS, ...STARTED_MSGS, CUTTING_MSG, ...DELIVERY_MSGS];
       return base;
     });
   }, [stage]);
@@ -69,16 +95,18 @@ function OrderChatPage() {
   }, [messages, stage]);
 
   const send = () => {
-    if (!draft.trim()) return;
+    if (!draft.trim() || stage === "closed") return;
     setMessages((m) => [...m, { id: String(Date.now()), from: "me", text: draft, time: "now" }]);
     setDraft("");
   };
 
   const advanceFromReview = () => { setStage(orderId, "confirmed"); setStageState("confirmed"); };
-  // Demo helper: tailor acknowledges fabrics
   const acknowledgeFabrics = () => { setStage(orderId, "work_started"); setStageState("work_started"); setShowStartedBanner(true); };
+  const pushCutting = () => { setStage(orderId, "cutting_done"); setStageState("cutting_done"); };
+  const markReady = () => { setStage(orderId, "ready_for_ack"); setStageState("ready_for_ack"); };
 
-  const isOngoing = stage === "awaiting_fabric" || stage === "fabric_sent" || stage === "work_started";
+  const isOngoing = stage === "awaiting_fabric" || stage === "fabric_sent" || stage === "work_started" || stage === "cutting_done" || stage === "ready_for_ack";
+  const isClosed = stage === "closed";
 
   return (
     <div className="mx-auto flex h-[calc(100vh-7rem)] max-w-2xl flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
@@ -114,7 +142,10 @@ function OrderChatPage() {
           >
             <div className="min-w-0">
               <div className="font-semibold">My siu style</div>
-              <div className="text-xs opacity-90">{bannerSubtitle(stage)}</div>
+              <div className="text-xs opacity-90 inline-flex items-center gap-1">
+                {bannerSubtitle(stage)}
+                {isClosed && <CheckCircle2 size={12} />}
+              </div>
             </div>
             <div className="flex items-center gap-1 text-xs font-medium">
               View order <ChevronRight size={14} />
@@ -172,10 +203,45 @@ function OrderChatPage() {
             className="mt-3 flex items-center justify-between gap-2 rounded-2xl bg-primary py-3.5 px-4 text-sm font-semibold text-primary-foreground"
           >
             <span className="flex-1 text-center">Fabrics received. Work started.</span>
+            <button
+              onClick={pushCutting}
+              title="Demo: tailor pushes cutting milestone"
+              className="rounded-full bg-primary-foreground/20 px-2 py-1 text-[10px] font-medium hover:bg-primary-foreground/30"
+            >
+              Push milestone
+            </button>
             <button onClick={() => setShowStartedBanner(false)} className="rounded-full p-0.5 hover:bg-primary-foreground/20">
               <X size={14} />
             </button>
           </motion.div>
+        )}
+
+        {stage === "cutting_done" && (
+          <div className="mt-3 flex items-center justify-between gap-2 rounded-2xl bg-success/20 py-3.5 px-4 text-sm font-semibold text-success">
+            <span className="flex-1 text-center">Cutting completed · in progress</span>
+            <button
+              onClick={markReady}
+              title="Demo: tailor marks dress ready for delivery"
+              className="rounded-full bg-success/20 px-2 py-1 text-[10px] font-medium hover:bg-success/30"
+            >
+              Mark ready
+            </button>
+          </div>
+        )}
+
+        {stage === "ready_for_ack" && (
+          <button
+            onClick={() => navigate({ to: "/dashboard/orders/$orderId/acknowledge", params: { orderId } })}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3.5 font-semibold text-primary-foreground transition hover:bg-primary/90"
+          >
+            Acknowledge dress <ArrowRight size={16} />
+          </button>
+        )}
+
+        {isClosed && (
+          <div className="mt-3 rounded-2xl bg-[#E8761F] py-3.5 px-4 text-center text-sm font-semibold text-primary-foreground">
+            Order closed
+          </div>
         )}
       </div>
 
@@ -190,8 +256,23 @@ function OrderChatPage() {
               animate={{ opacity: 1, y: 0 }}
               className={`flex ${mine ? "justify-end" : "justify-start"}`}
             >
-              <div className={`max-w-[78%] ${mine ? "items-end" : "items-start"}`}>
-                {m.file ? (
+              <div className={`max-w-[80%] ${mine ? "items-end" : "items-start"}`}>
+                {m.milestone ? (
+                  <div className="rounded-2xl border border-success/40 bg-success/10 p-2">
+                    <div className="grid grid-cols-2 gap-1">
+                      {m.milestone.images.map((src: string, i: number) => (
+                        <img key={i} src={src} alt="" className="h-32 w-full rounded-lg object-cover" />
+                      ))}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between px-1">
+                      <div className="inline-flex items-center gap-2">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-[10px] text-primary-foreground">✓</span>
+                        <span className="text-sm font-medium">{m.milestone.label}</span>
+                      </div>
+                      <span className="text-[10px] text-muted-foreground">{m.time} ✓</span>
+                    </div>
+                  </div>
+                ) : m.file ? (
                   <div className="inline-flex items-center gap-2 rounded-xl bg-foreground px-3 py-2 text-xs text-background">
                     <FileText size={14} />
                     <span className="font-medium">{m.file.name}</span>
@@ -199,7 +280,7 @@ function OrderChatPage() {
                   </div>
                 ) : (
                   <div className={`rounded-2xl px-4 py-2.5 text-sm ${mine ? "bg-primary/10 text-primary" : "bg-muted text-foreground"}`}>
-                    <p>{m.text}</p>
+                    <p className="whitespace-pre-line">{m.text}</p>
                     <div className={`mt-1 text-[10px] ${mine ? "text-primary/60" : "text-muted-foreground"}`}>
                       {m.time} ✓
                     </div>
@@ -213,17 +294,18 @@ function OrderChatPage() {
 
       {/* Composer */}
       <div className="border-t border-border p-3">
-        <div className="flex items-center gap-2 rounded-full border border-border bg-card px-2 py-1.5">
-          <button className="rounded-full p-2 text-muted-foreground hover:bg-muted"><Paperclip size={16} /></button>
+        <div className={`flex items-center gap-2 rounded-full border border-border px-2 py-1.5 ${isClosed ? "bg-muted opacity-70" : "bg-card"}`}>
+          <button disabled={isClosed} className="rounded-full p-2 text-muted-foreground hover:bg-muted disabled:cursor-not-allowed"><Paperclip size={16} /></button>
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Type Message Here…"
-            className="flex-1 bg-transparent text-sm focus:outline-none"
+            placeholder={isClosed ? "Chat closed" : "Type Message Here…"}
+            disabled={isClosed}
+            className="flex-1 bg-transparent text-sm focus:outline-none disabled:cursor-not-allowed"
           />
-          <button className="rounded-full p-2 text-muted-foreground hover:bg-muted"><Mic size={16} /></button>
-          <button onClick={send} className="rounded-full bg-primary p-2.5 text-primary-foreground hover:bg-primary/90"><Send size={14} /></button>
+          <button disabled={isClosed} className="rounded-full p-2 text-muted-foreground hover:bg-muted disabled:cursor-not-allowed"><Mic size={16} /></button>
+          <button onClick={send} disabled={isClosed} className="rounded-full bg-primary p-2.5 text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"><Send size={14} /></button>
         </div>
       </div>
 
@@ -239,22 +321,26 @@ function OrderChatPage() {
           }`}>
             <div>
               <div className="font-semibold">My siu style</div>
-              <div className="mt-0.5 text-xs opacity-90">{bannerSubtitle(stage)}</div>
+              <div className="mt-0.5 text-xs opacity-90 inline-flex items-center gap-1">
+                {bannerSubtitle(stage)}
+                {isClosed && <CheckCircle2 size={12} />}
+              </div>
             </div>
             <div className="text-xs">{statusLabel(stage)}</div>
           </div>
         </div>
 
         {/* ETA progress bar — visible once work has started */}
-        {stage === "work_started" && (
+        {(stage === "work_started" || stage === "cutting_done" || stage === "ready_for_ack" || isClosed) && (
           <div className="mt-5">
             <div className="flex items-center justify-between text-sm">
-              <span className="inline-flex items-center gap-1 text-muted-foreground"><Clock size={12} /> ETA - 1 day</span>
-              <span className="font-semibold text-success">97%</span>
+              <span className="inline-flex items-center gap-1 text-muted-foreground"><Clock size={12} /> ETA - {isClosed || stage === "ready_for_ack" ? "0 day" : "1 day"}</span>
+              <span className="font-semibold text-success">{isClosed || stage === "ready_for_ack" ? "100%" : stage === "cutting_done" ? "60%" : "30%"}</span>
             </div>
             <div className="relative mt-2 h-2 overflow-hidden rounded-full bg-muted">
               <motion.div
-                initial={{ width: 0 }} animate={{ width: "97%" }}
+                initial={{ width: 0 }}
+                animate={{ width: isClosed || stage === "ready_for_ack" ? "100%" : stage === "cutting_done" ? "60%" : "30%" }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="h-full rounded-full bg-success"
               />
@@ -262,7 +348,12 @@ function OrderChatPage() {
                 <span key={p} className="absolute top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-card" style={{ left: `${p}%` }} />
               ))}
             </div>
-            <div className="mt-2 text-center"><a className="text-sm font-medium text-primary underline">View</a></div>
+          </div>
+        )}
+
+        {isClosed && (
+          <div className="mt-3 rounded-2xl bg-[#E8761F] py-3 text-center text-sm font-semibold text-primary-foreground">
+            Order closed
           </div>
         )}
 
@@ -291,11 +382,15 @@ function OrderChatPage() {
         <div className="mt-4 space-y-2 border-t border-border pt-4 text-sm">
           <Row label="Fabrics and materials" value={<FabricStatus stage={stage} />} />
           <Row label="Delivery timeline" value={stage === "review" ? "5 - 7 days" : "5 days"} />
-          <Row label={stage === "review" ? "Proposed amount" : isOngoing ? "Amount" : "Sub total"} value="₦35,000" />
-          {isOngoing && <Row label="Transaction ID" value={<span className="text-xs">Order {orderId}</span>} />}
+          {isClosed && <>
+            <Row label="Delivered" value={<span>24/04/2026 <span className="text-muted-foreground">(4 days)</span></span>} />
+            <Row label="Order closed" value="24/04/2026" />
+          </>}
+          <Row label={stage === "review" ? "Proposed amount" : isOngoing || isClosed ? "Amount" : "Sub total"} value="₦35,000" />
+          {(isOngoing || isClosed) && <Row label="Transaction ID" value={<span className="text-xs">Order {orderId}</span>} />}
         </div>
 
-        {!isOngoing && (
+        {!isOngoing && !isClosed && (
           <div className="mt-3 flex items-center justify-between border-t border-border pt-3 text-sm">
             <span className={stage === "confirmed" ? "" : "text-muted-foreground"}>
               {stage === "confirmed" ? "Total amount" : "Total amount (pending tailor's confirmation)"}
@@ -328,6 +423,26 @@ function OrderChatPage() {
             </button>
             <button onClick={() => setSummaryOpen(false)} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><MessageSquare size={16} /></button>
           </div>
+        ) : stage === "ready_for_ack" ? (
+          <div className="mt-5 flex items-center gap-3">
+            <button
+              onClick={() => { setSummaryOpen(false); navigate({ to: "/dashboard/orders/$orderId/acknowledge", params: { orderId } }); }}
+              className="flex-1 rounded-2xl border-2 border-dashed border-primary bg-primary py-3 font-semibold text-primary-foreground hover:bg-primary/90"
+            >
+              Acknowledge dress
+            </button>
+            <button onClick={() => setSummaryOpen(false)} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><MessageSquare size={16} /></button>
+          </div>
+        ) : isClosed ? (
+          <div className="mt-5 flex items-center gap-3">
+            <button
+              disabled
+              className="flex-1 rounded-2xl border-2 border-dashed border-primary/40 bg-primary/30 py-3 font-semibold text-primary-foreground/80 cursor-not-allowed"
+            >
+              {getRated(orderId) ? "Rated" : "Rate tailor"}
+            </button>
+            <button onClick={() => setSummaryOpen(false)} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><Star size={16} /></button>
+          </div>
         ) : (
           <div className="mt-5 flex justify-end">
             <button onClick={() => setSummaryOpen(false)} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><MessageSquare size={16} /></button>
@@ -344,20 +459,23 @@ function bannerSubtitle(stage: Stage) {
     case "confirmed": return "Order confirmed.";
     case "awaiting_fabric":
     case "fabric_sent": return "Payment made, tailor awaiting fabric";
-    case "work_started": return "Processing attire";
-    case "completed": return "Order completed";
+    case "work_started": return "Work in progress";
+    case "cutting_done": return "Work in progress";
+    case "ready_for_ack": return "Delivered - awaiting acknowledgement";
+    case "closed": return "Order completed";
   }
 }
 
 function statusLabel(stage: Stage) {
   if (stage === "review" || stage === "confirmed") return "Pending order";
-  if (stage === "completed") return "Completed";
+  if (stage === "closed") return "Ongoing order";
   return "Ongoing order";
 }
 
 function FabricStatus({ stage }: { stage: Stage }) {
   if (stage === "fabric_sent") return <span className="inline-flex items-center gap-1">Awaiting <Info size={12} className="text-muted-foreground" /></span>;
-  if (stage === "work_started") return <span className="inline-flex items-center gap-1">Delivered <Info size={12} className="text-muted-foreground" /></span>;
+  if (stage === "work_started" || stage === "cutting_done" || stage === "ready_for_ack" || stage === "closed")
+    return <span className="inline-flex items-center gap-1">Delivered <Info size={12} className="text-muted-foreground" /></span>;
   return <span className="inline-flex items-center gap-1">I'll provide <Info size={12} className="text-muted-foreground" /></span>;
 }
 
