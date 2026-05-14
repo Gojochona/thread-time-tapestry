@@ -116,18 +116,6 @@ const DashboardDashboardOrdersOrderIdAcknowledgeRoute =
     path: '/acknowledge',
     getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
   } as any)
-const DashboardDashboardOrdersOrderIdRateRoute =
-  DashboardDashboardOrdersOrderIdRateRouteImport.update({
-    id: '/rate',
-    path: '/rate',
-    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
-  } as any)
-const DashboardDashboardOrdersOrderIdAcknowledgeRoute =
-  DashboardDashboardOrdersOrderIdAcknowledgeRouteImport.update({
-    id: '/acknowledge',
-    path: '/acknowledge',
-    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
