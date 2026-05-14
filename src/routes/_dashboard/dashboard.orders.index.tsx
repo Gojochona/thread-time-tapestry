@@ -133,6 +133,6 @@ function OrdersPage() {
   );
 }
 
-export const Route = createFileRoute("/_dashboard/dashboard/orders")({
+export const Route = createFileRoute("/_dashboard/dashboard/orders/")({
   component: OrdersPage,
 });
