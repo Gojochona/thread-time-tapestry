@@ -166,7 +166,7 @@ function OrdersPage() {
                             ? "text-success"
                             : o.progressLabel === "Started work"
                             ? "text-success"
-                            : "text-warning"
+                            : "text-amber-500"
                         }`}
                       >
                         {o.progress && o.progress >= 95 ? `${o.progress}%` : o.progressLabel}
@@ -187,7 +187,7 @@ function OrdersPage() {
                         animate={{ width: `${o.progress ?? 0}%` }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
                         className={`h-full rounded-full ${
-                          (o.progress ?? 0) >= 95 ? "bg-success" : (o.progress ?? 0) >= 25 ? "bg-success" : "bg-warning"
+                          (o.progress ?? 0) >= 95 ? "bg-success" : (o.progress ?? 0) >= 25 ? "bg-success" : "bg-amber-500"
                         }`}
                       />
                       {[25, 50, 75].map((p) => (
