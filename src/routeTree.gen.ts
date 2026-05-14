@@ -22,6 +22,7 @@ import { Route as DashboardDashboardCreateRouteImport } from './routes/_dashboar
 import { Route as DashboardDashboardOrdersIndexRouteImport } from './routes/_dashboard/dashboard.orders.index'
 import { Route as DashboardDashboardOrdersOrderIdRouteImport } from './routes/_dashboard/dashboard.orders.$orderId'
 import { Route as DashboardDashboardOrdersOrderIdPayRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.pay'
+import { Route as DashboardDashboardOrdersOrderIdFabricRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.fabric'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -95,6 +96,12 @@ const DashboardDashboardOrdersOrderIdPayRoute =
     path: '/pay',
     getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
   } as any)
+const DashboardDashboardOrdersOrderIdFabricRoute =
+  DashboardDashboardOrdersOrderIdFabricRouteImport.update({
+    id: '/fabric',
+    path: '/fabric',
+    getParentRoute: () => DashboardDashboardOrdersOrderIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardDashboardIndexRoute
   '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
   '/dashboard/orders/': typeof DashboardDashboardOrdersIndexRoute
+  '/dashboard/orders/$orderId/fabric': typeof DashboardDashboardOrdersOrderIdFabricRoute
   '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 export interface FileRoutesByTo {
@@ -122,6 +130,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardDashboardIndexRoute
   '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
   '/dashboard/orders': typeof DashboardDashboardOrdersIndexRoute
+  '/dashboard/orders/$orderId/fabric': typeof DashboardDashboardOrdersOrderIdFabricRoute
   '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 export interface FileRoutesById {
@@ -138,6 +147,7 @@ export interface FileRoutesById {
   '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
   '/_dashboard/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
   '/_dashboard/dashboard/orders/': typeof DashboardDashboardOrdersIndexRoute
+  '/_dashboard/dashboard/orders/$orderId/fabric': typeof DashboardDashboardOrdersOrderIdFabricRoute
   '/_dashboard/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 export interface FileRouteTypes {
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/dashboard/orders/$orderId'
     | '/dashboard/orders/'
+    | '/dashboard/orders/$orderId/fabric'
     | '/dashboard/orders/$orderId/pay'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/orders/$orderId'
     | '/dashboard/orders'
+    | '/dashboard/orders/$orderId/fabric'
     | '/dashboard/orders/$orderId/pay'
   id:
     | '__root__'
@@ -183,6 +195,7 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard/'
     | '/_dashboard/dashboard/orders/$orderId'
     | '/_dashboard/dashboard/orders/'
+    | '/_dashboard/dashboard/orders/$orderId/fabric'
     | '/_dashboard/dashboard/orders/$orderId/pay'
   fileRoutesById: FileRoutesById
 }
@@ -286,15 +299,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardOrdersOrderIdPayRouteImport
       parentRoute: typeof DashboardDashboardOrdersOrderIdRoute
     }
+    '/_dashboard/dashboard/orders/$orderId/fabric': {
+      id: '/_dashboard/dashboard/orders/$orderId/fabric'
+      path: '/fabric'
+      fullPath: '/dashboard/orders/$orderId/fabric'
+      preLoaderRoute: typeof DashboardDashboardOrdersOrderIdFabricRouteImport
+      parentRoute: typeof DashboardDashboardOrdersOrderIdRoute
+    }
   }
 }
 
 interface DashboardDashboardOrdersOrderIdRouteChildren {
+  DashboardDashboardOrdersOrderIdFabricRoute: typeof DashboardDashboardOrdersOrderIdFabricRoute
   DashboardDashboardOrdersOrderIdPayRoute: typeof DashboardDashboardOrdersOrderIdPayRoute
 }
 
 const DashboardDashboardOrdersOrderIdRouteChildren: DashboardDashboardOrdersOrderIdRouteChildren =
   {
+    DashboardDashboardOrdersOrderIdFabricRoute:
+      DashboardDashboardOrdersOrderIdFabricRoute,
     DashboardDashboardOrdersOrderIdPayRoute:
       DashboardDashboardOrdersOrderIdPayRoute,
   }
@@ -340,3 +363,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
