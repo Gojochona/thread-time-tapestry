@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Plus, Info, Loader2, CheckCircle2 } from "lucide-react";
 import { Modal } from "../../components/modals/Modal";
 import isewMark from "../../assets/isew-mark.png";
+import { setStage } from "../../lib/orderStage";
 
 const TOTAL = 35000;
 
@@ -24,6 +25,7 @@ function PayPage() {
     setTimeout(() => {
       setProcessing(false);
       setSuccess(true);
+      setStage(orderId, "awaiting_fabric");
     }, 1800);
   };
 
