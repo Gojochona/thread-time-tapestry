@@ -12,4 +12,3 @@ export function ExplorePage() {
     </motion.div>
   );
 }
- as never); }

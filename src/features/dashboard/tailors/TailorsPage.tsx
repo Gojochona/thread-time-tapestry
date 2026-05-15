@@ -12,4 +12,3 @@ export function TailorsPage() {
     </motion.div>
   );
 }
- as never); }

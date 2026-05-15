@@ -12,4 +12,3 @@ export function WalletPage() {
     </motion.div>
   );
 }
- as never); }

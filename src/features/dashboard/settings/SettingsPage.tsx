@@ -12,4 +12,3 @@ export function SettingsPage() {
     </motion.div>
   );
 }
- as never); }
