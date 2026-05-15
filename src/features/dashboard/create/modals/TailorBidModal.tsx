@@ -1,4 +1,4 @@
-import { Modal } from "./Modal";
+import { Modal } from "@/features/shared/Modal";
 import { Button } from "../Button";
 import { Star, Clock, Package, CheckCircle2, MapPin } from "lucide-react";
 

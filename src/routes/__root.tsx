@@ -8,7 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
-import appCss from "../styles.css?url";
+import appCss from "../styles/styles.css?url";
 import { Toaster } from "sonner";
 
 function NotFoundComponent() {
