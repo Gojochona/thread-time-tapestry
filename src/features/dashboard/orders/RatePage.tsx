@@ -1,11 +1,13 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Star, BadgeCheck } from "lucide-react";
 import { setRated, setStage } from "@/features/dashboard/orders/orderStage";
 import { toast } from "sonner";
 
+const routeApi = getRouteApi("/_dashboard/dashboard/orders/$orderId/rate");
+
 export function RatePage() {
-  const { orderId } = Route.useParams();
+  const { orderId } = routeApi.useParams();
   const navigate = useNavigate();
   const [stars, setStars] = useState(0);
   const [hover, setHover] = useState(0);

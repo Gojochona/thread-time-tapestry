@@ -1,12 +1,14 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { setStage } from "@/features/dashboard/orders/orderStage";
 import isewMark from "@/assets/isew-mark.png";
 
+const routeApi = getRouteApi("/_dashboard/dashboard/orders/$orderId/acknowledge");
+
 export function AcknowledgePage() {
-  const { orderId } = Route.useParams();
+  const { orderId } = routeApi.useParams();
   const navigate = useNavigate();
   const [done, setDone] = useState(false);
 

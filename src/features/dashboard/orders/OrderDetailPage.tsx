@@ -1,9 +1,11 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, getRouteApi } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Paperclip, Mic, Send, FileText, Download, Info, ChevronRight, X, Clock, MessageSquare, CheckCircle2, Star } from "lucide-react";
 import { Modal } from "@/features/shared/Modal";
 import { getStage, setStage, getRated, type Stage } from "@/features/dashboard/orders/orderStage";
+
+const routeApi = getRouteApi("/_dashboard/dashboard/orders/$orderId");
 
 type Msg =
   | { id: string; from: "me" | "them"; text: string; time: string }
@@ -61,7 +63,7 @@ const DELIVERY_MSGS: Msg[] = [
 ];
 
 export function OrderDetailPage() {
-  const { orderId } = Route.useParams();
+  const { orderId } = routeApi.useParams();
   const navigate = useNavigate();
   const [stage, setStageState] = useState<Stage>("review");
   const [messages, setMessages] = useState<Msg[]>(INITIAL);

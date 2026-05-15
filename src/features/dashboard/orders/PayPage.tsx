@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Plus, Info, Loader2, CheckCircle2 } from "lucide-react";
@@ -6,10 +6,12 @@ import { Modal } from "@/features/shared/Modal";
 import isewMark from "@/assets/isew-mark.png";
 import { setStage } from "@/features/dashboard/orders/orderStage";
 
+const routeApi = getRouteApi("/_dashboard/dashboard/orders/$orderId/pay");
+
 const TOTAL = 35000;
 
 export function PayPage() {
-  const { orderId } = Route.useParams();
+  const { orderId } = routeApi.useParams();
   const navigate = useNavigate();
   const [balance, setBalance] = useState(30000);
   const [topupOpen, setTopupOpen] = useState(false);
