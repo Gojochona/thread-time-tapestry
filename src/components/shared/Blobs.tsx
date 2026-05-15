@@ -1,5 +1,5 @@
-import fabric from "../assets/fabric.png";
-import tape from "../assets/tape.png";
+import fabric from "@/assets/fabric.png";
+import tape from "@/assets/tape.png";
 
 export function Blobs({ variant = "default" }: any) {
   return (
