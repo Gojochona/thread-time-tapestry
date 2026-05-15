@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import logoSrc from "../assets/logo.png";
+import logoSrc from "@/assets/logo.png";
 
 export function Logo({ className = "h-9 w-auto" }: any) {
   return (
