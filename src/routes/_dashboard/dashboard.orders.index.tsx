@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Clock } from "lucide-react";
-import { getStage, type Stage } from "../../lib/orderStage";
+import { getStage, type Stage } from "@/features/dashboard/orders/orderStage";
 
 type Status = "Pending" | "Ongoing" | "Completed";
 

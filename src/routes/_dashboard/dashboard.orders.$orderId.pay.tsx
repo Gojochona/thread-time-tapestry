@@ -2,9 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Plus, Info, Loader2, CheckCircle2 } from "lucide-react";
-import { Modal } from "../../components/modals/Modal";
+import { Modal } from "@/features/shared/Modal";
 import isewMark from "../../assets/isew-mark.png";
-import { setStage } from "../../lib/orderStage";
+import { setStage } from "@/features/dashboard/orders/orderStage";
 
 const TOTAL = 35000;
 

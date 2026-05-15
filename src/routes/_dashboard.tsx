@@ -5,7 +5,7 @@ import {
   Home, ShoppingBag, Search, Wallet, Users, Settings,
   Bell, Menu, X, ChevronDown, LogOut, Plus, ChevronsLeft, ChevronsRight,
 } from "lucide-react";
-import { Logo } from "../components/Logo";
+import { Logo } from "@/components/shared/Logo";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../components/ui/tooltip";
 
 export const Route = createFileRoute("/_dashboard")({

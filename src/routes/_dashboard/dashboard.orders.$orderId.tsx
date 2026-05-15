@@ -2,8 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Paperclip, Mic, Send, FileText, Download, Info, ChevronRight, X, Clock, MessageSquare, CheckCircle2, Star } from "lucide-react";
-import { Modal } from "../../components/modals/Modal";
-import { getStage, setStage, getRated, type Stage } from "../../lib/orderStage";
+import { Modal } from "@/features/shared/Modal";
+import { getStage, setStage, getRated, type Stage } from "@/features/dashboard/orders/orderStage";
 
 type Msg =
   | { id: string; from: "me" | "them"; text: string; time: string }

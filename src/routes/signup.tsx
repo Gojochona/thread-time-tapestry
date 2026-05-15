@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { Logo } from "../components/Logo";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
-import { Blobs } from "../components/Blobs";
+import { Logo } from "@/components/shared/Logo";
+import { Button } from "@/components/shared/Button";
+import { Input } from "@/components/shared/Input";
+import { Blobs } from "@/components/shared/Blobs";
 import { AuthSide } from "./login";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 

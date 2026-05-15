@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Modal } from "./Modal";
+import { Modal } from "@/features/shared/Modal";
 import { Button } from "../Button";
 import { Search, Star, ChevronDown, ChevronRight, X, CheckCircle2, MapPin } from "lucide-react";
 import { MapView } from "../MapView";

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Shirt, Scissors, ShieldCheck, MapPin, Plus, ChevronRight, Clock } from "lucide-react";
-import { Button } from "../../components/Button";
+import { Button } from "@/components/shared/Button";
 
 export const Route = createFileRoute("/_dashboard/dashboard/")({
   component: Overview,

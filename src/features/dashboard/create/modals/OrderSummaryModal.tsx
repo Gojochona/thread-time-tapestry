@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Modal } from "./Modal";
+import { Modal } from "@/features/shared/Modal";
 import { Button } from "../Button";
 import { CheckCircle2, ArrowRight, Edit3 } from "lucide-react";
 

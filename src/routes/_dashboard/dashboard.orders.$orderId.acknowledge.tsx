@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
-import { setStage } from "../../lib/orderStage";
+import { setStage } from "@/features/dashboard/orders/orderStage";
 import isewMark from "../../assets/isew-mark.png";
 
 function AcknowledgePage() {

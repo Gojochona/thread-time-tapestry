@@ -5,11 +5,11 @@ import {
   ChevronRight, Star, Plus, Minus, Scissors,
 } from "lucide-react";
 import { useState } from "react";
-import { Navbar } from "../components/Navbar";
-import { Footer } from "../components/Footer";
-import { Blobs } from "../components/Blobs";
-import { Button } from "../components/Button";
-import { PaymentMethodsRow } from "../components/PaymentIcons";
+import { Navbar } from "@/components/shared/Navbar";
+import { Footer } from "@/components/shared/Footer";
+import { Blobs } from "@/components/shared/Blobs";
+import { Button } from "@/components/shared/Button";
+import { PaymentMethodsRow } from "@/components/shared/PaymentIcons";
 import heroImg from "../assets/hero-tailor.jpg";
 import showcase1 from "../assets/showcase-1.jpg";
 import showcase2 from "../assets/showcase-2.jpg";

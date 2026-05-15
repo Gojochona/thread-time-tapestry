@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Star, BadgeCheck } from "lucide-react";
-import { setRated, setStage } from "../../lib/orderStage";
+import { setRated, setStage } from "@/features/dashboard/orders/orderStage";
 import { toast } from "sonner";
 
 function RatePage() {

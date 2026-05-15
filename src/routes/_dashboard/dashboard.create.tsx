@@ -6,12 +6,12 @@ import {
   Search, Building2, User, MapPin, Edit3,
 } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "../../components/Button";
-import { Input } from "../../components/Input";
-import { TailorSearchModal } from "../../components/modals/TailorSearchModal";
-import { TailorProfileModal } from "../../components/modals/TailorProfileModal";
-import { TailorBidModal } from "../../components/modals/TailorBidModal";
-import { OrderSummaryModal } from "../../components/modals/OrderSummaryModal";
+import { Button } from "@/components/shared/Button";
+import { Input } from "@/components/shared/Input";
+import { TailorSearchModal } from "@/features/dashboard/create/modals/TailorSearchModal";
+import { TailorProfileModal } from "@/features/dashboard/create/modals/TailorProfileModal";
+import { TailorBidModal } from "@/features/dashboard/create/modals/TailorBidModal";
+import { OrderSummaryModal } from "@/features/dashboard/create/modals/OrderSummaryModal";
 
 export const Route = createFileRoute("/_dashboard/dashboard/create")({
   head: () => ({ meta: [{ title: "Create custom outfit — i-sew" }] }),
