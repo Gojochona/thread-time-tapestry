@@ -28,6 +28,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { Button } from "@/components/shared/Button";
+import { Link } from "@tanstack/react-router";
 
 function Card({ children, className = "", delay = 0 }: any) {
   return (
@@ -130,18 +131,25 @@ export function WalletPage() {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button variant="accent" size="lg">
-                <Plus size={16} /> Fund wallet
-              </Button>
-              <Button variant="glass" size="lg">
-                <ArrowUpRight size={16} /> Withdraw
-              </Button>
+              <Link to="/dashboard/wallet/topup">
+                <Button variant="accent" size="lg">
+                  <Plus size={16} /> Fund wallet
+                </Button>
+              </Link>
+              <Link to="/dashboard/wallet/withdraw">
+                <Button variant="glass" size="lg">
+                  <ArrowUpRight size={16} /> Withdraw
+                </Button>
+              </Link>
             </div>
           </div>
 
           {/* Sub-balance pills */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl bg-white/10 p-4 backdrop-blur border border-white/15">
+            <Link
+              to="/dashboard/wallet/spending"
+              className="rounded-2xl bg-white/10 p-4 backdrop-blur border border-white/15 transition-colors hover:bg-white/15"
+            >
               <div className="flex items-center justify-between">
                 <p className="text-xs text-primary-foreground/70">Locked</p>
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent/30">
@@ -149,8 +157,8 @@ export function WalletPage() {
                 </div>
               </div>
               <div className="mt-2 font-display text-2xl font-bold">{mask(fmt(locked))}</div>
-              <p className="mt-1 text-[11px] text-primary-foreground/60">In escrow</p>
-            </div>
+              <p className="mt-1 text-[11px] text-primary-foreground/60">In escrow · view</p>
+            </Link>
             <div className="rounded-2xl bg-white/10 p-4 backdrop-blur border border-white/15">
               <div className="flex items-center justify-between">
                 <p className="text-xs text-primary-foreground/70">Total</p>
@@ -316,23 +324,29 @@ export function WalletPage() {
               ? "bg-success/15 text-success"
               : "gradient-cream text-primary";
             return (
-              <li key={t.id} className="flex items-center gap-4 py-3.5">
-                <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${tone}`}>
-                  <Icon size={18} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold">{t.title}</p>
-                  <p className="truncate text-xs text-muted-foreground">{t.meta}</p>
-                </div>
-                <div className="hidden text-xs text-muted-foreground sm:block">{t.date}</div>
-                <div
-                  className={`flex items-center gap-1 font-display text-sm font-bold tabular-nums ${
-                    isEscrow ? "text-foreground" : isCredit ? "text-success" : "text-foreground"
-                  }`}
+              <li key={t.id}>
+                <Link
+                  to="/dashboard/wallet/transaction/$transactionId"
+                  params={{ transactionId: t.id }}
+                  className="flex items-center gap-4 rounded-2xl py-3.5 transition-colors hover:bg-muted/60"
                 >
-                  {isCredit ? <ArrowDownLeft size={14} /> : <ArrowUpRight size={14} />}
-                  {fmt(t.amount)}
-                </div>
+                  <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${tone}`}>
+                    <Icon size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold">{t.title}</p>
+                    <p className="truncate text-xs text-muted-foreground">{t.meta}</p>
+                  </div>
+                  <div className="hidden text-xs text-muted-foreground sm:block">{t.date}</div>
+                  <div
+                    className={`flex items-center gap-1 font-display text-sm font-bold tabular-nums ${
+                      isEscrow ? "text-foreground" : isCredit ? "text-success" : "text-foreground"
+                    }`}
+                  >
+                    {isCredit ? <ArrowDownLeft size={14} /> : <ArrowUpRight size={14} />}
+                    {fmt(t.amount)}
+                  </div>
+                </Link>
               </li>
             );
           })}

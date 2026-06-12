@@ -20,7 +20,13 @@ import { Route as DashboardDashboardSettingsRouteImport } from './routes/_dashbo
 import { Route as DashboardDashboardExploreRouteImport } from './routes/_dashboard/dashboard.explore'
 import { Route as DashboardDashboardCreateRouteImport } from './routes/_dashboard/dashboard.create'
 import { Route as DashboardDashboardOrdersIndexRouteImport } from './routes/_dashboard/dashboard.orders.index'
+import { Route as DashboardDashboardWalletWithdrawRouteImport } from './routes/_dashboard/dashboard.wallet.withdraw'
+import { Route as DashboardDashboardWalletTopupRouteImport } from './routes/_dashboard/dashboard.wallet.topup'
+import { Route as DashboardDashboardWalletSuccessRouteImport } from './routes/_dashboard/dashboard.wallet.success'
+import { Route as DashboardDashboardWalletSpendingRouteImport } from './routes/_dashboard/dashboard.wallet.spending'
 import { Route as DashboardDashboardOrdersOrderIdRouteImport } from './routes/_dashboard/dashboard.orders.$orderId'
+import { Route as DashboardDashboardWalletWithdrawAddBankRouteImport } from './routes/_dashboard/dashboard.wallet.withdraw.add-bank'
+import { Route as DashboardDashboardWalletTransactionTransactionIdRouteImport } from './routes/_dashboard/dashboard.wallet.transaction.$transactionId'
 import { Route as DashboardDashboardOrdersOrderIdRateRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.rate'
 import { Route as DashboardDashboardOrdersOrderIdPayRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.pay'
 import { Route as DashboardDashboardOrdersOrderIdFabricRouteImport } from './routes/_dashboard/dashboard.orders.$orderId.fabric'
@@ -86,11 +92,47 @@ const DashboardDashboardOrdersIndexRoute =
     path: '/dashboard/orders/',
     getParentRoute: () => DashboardRoute,
   } as any)
+const DashboardDashboardWalletWithdrawRoute =
+  DashboardDashboardWalletWithdrawRouteImport.update({
+    id: '/withdraw',
+    path: '/withdraw',
+    getParentRoute: () => DashboardDashboardWalletRoute,
+  } as any)
+const DashboardDashboardWalletTopupRoute =
+  DashboardDashboardWalletTopupRouteImport.update({
+    id: '/topup',
+    path: '/topup',
+    getParentRoute: () => DashboardDashboardWalletRoute,
+  } as any)
+const DashboardDashboardWalletSuccessRoute =
+  DashboardDashboardWalletSuccessRouteImport.update({
+    id: '/success',
+    path: '/success',
+    getParentRoute: () => DashboardDashboardWalletRoute,
+  } as any)
+const DashboardDashboardWalletSpendingRoute =
+  DashboardDashboardWalletSpendingRouteImport.update({
+    id: '/spending',
+    path: '/spending',
+    getParentRoute: () => DashboardDashboardWalletRoute,
+  } as any)
 const DashboardDashboardOrdersOrderIdRoute =
   DashboardDashboardOrdersOrderIdRouteImport.update({
     id: '/dashboard/orders/$orderId',
     path: '/dashboard/orders/$orderId',
     getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardDashboardWalletWithdrawAddBankRoute =
+  DashboardDashboardWalletWithdrawAddBankRouteImport.update({
+    id: '/add-bank',
+    path: '/add-bank',
+    getParentRoute: () => DashboardDashboardWalletWithdrawRoute,
+  } as any)
+const DashboardDashboardWalletTransactionTransactionIdRoute =
+  DashboardDashboardWalletTransactionTransactionIdRouteImport.update({
+    id: '/transaction/$transactionId',
+    path: '/transaction/$transactionId',
+    getParentRoute: () => DashboardDashboardWalletRoute,
   } as any)
 const DashboardDashboardOrdersOrderIdRateRoute =
   DashboardDashboardOrdersOrderIdRateRouteImport.update({
@@ -125,14 +167,20 @@ export interface FileRoutesByFullPath {
   '/dashboard/explore': typeof DashboardDashboardExploreRoute
   '/dashboard/settings': typeof DashboardDashboardSettingsRoute
   '/dashboard/tailors': typeof DashboardDashboardTailorsRoute
-  '/dashboard/wallet': typeof DashboardDashboardWalletRoute
+  '/dashboard/wallet': typeof DashboardDashboardWalletRouteWithChildren
   '/dashboard/': typeof DashboardDashboardIndexRoute
   '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/dashboard/wallet/spending': typeof DashboardDashboardWalletSpendingRoute
+  '/dashboard/wallet/success': typeof DashboardDashboardWalletSuccessRoute
+  '/dashboard/wallet/topup': typeof DashboardDashboardWalletTopupRoute
+  '/dashboard/wallet/withdraw': typeof DashboardDashboardWalletWithdrawRouteWithChildren
   '/dashboard/orders/': typeof DashboardDashboardOrdersIndexRoute
   '/dashboard/orders/$orderId/acknowledge': typeof DashboardDashboardOrdersOrderIdAcknowledgeRoute
   '/dashboard/orders/$orderId/fabric': typeof DashboardDashboardOrdersOrderIdFabricRoute
   '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
   '/dashboard/orders/$orderId/rate': typeof DashboardDashboardOrdersOrderIdRateRoute
+  '/dashboard/wallet/transaction/$transactionId': typeof DashboardDashboardWalletTransactionTransactionIdRoute
+  '/dashboard/wallet/withdraw/add-bank': typeof DashboardDashboardWalletWithdrawAddBankRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,14 +190,20 @@ export interface FileRoutesByTo {
   '/dashboard/explore': typeof DashboardDashboardExploreRoute
   '/dashboard/settings': typeof DashboardDashboardSettingsRoute
   '/dashboard/tailors': typeof DashboardDashboardTailorsRoute
-  '/dashboard/wallet': typeof DashboardDashboardWalletRoute
+  '/dashboard/wallet': typeof DashboardDashboardWalletRouteWithChildren
   '/dashboard': typeof DashboardDashboardIndexRoute
   '/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/dashboard/wallet/spending': typeof DashboardDashboardWalletSpendingRoute
+  '/dashboard/wallet/success': typeof DashboardDashboardWalletSuccessRoute
+  '/dashboard/wallet/topup': typeof DashboardDashboardWalletTopupRoute
+  '/dashboard/wallet/withdraw': typeof DashboardDashboardWalletWithdrawRouteWithChildren
   '/dashboard/orders': typeof DashboardDashboardOrdersIndexRoute
   '/dashboard/orders/$orderId/acknowledge': typeof DashboardDashboardOrdersOrderIdAcknowledgeRoute
   '/dashboard/orders/$orderId/fabric': typeof DashboardDashboardOrdersOrderIdFabricRoute
   '/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
   '/dashboard/orders/$orderId/rate': typeof DashboardDashboardOrdersOrderIdRateRoute
+  '/dashboard/wallet/transaction/$transactionId': typeof DashboardDashboardWalletTransactionTransactionIdRoute
+  '/dashboard/wallet/withdraw/add-bank': typeof DashboardDashboardWalletWithdrawAddBankRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,14 +215,20 @@ export interface FileRoutesById {
   '/_dashboard/dashboard/explore': typeof DashboardDashboardExploreRoute
   '/_dashboard/dashboard/settings': typeof DashboardDashboardSettingsRoute
   '/_dashboard/dashboard/tailors': typeof DashboardDashboardTailorsRoute
-  '/_dashboard/dashboard/wallet': typeof DashboardDashboardWalletRoute
+  '/_dashboard/dashboard/wallet': typeof DashboardDashboardWalletRouteWithChildren
   '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
   '/_dashboard/dashboard/orders/$orderId': typeof DashboardDashboardOrdersOrderIdRouteWithChildren
+  '/_dashboard/dashboard/wallet/spending': typeof DashboardDashboardWalletSpendingRoute
+  '/_dashboard/dashboard/wallet/success': typeof DashboardDashboardWalletSuccessRoute
+  '/_dashboard/dashboard/wallet/topup': typeof DashboardDashboardWalletTopupRoute
+  '/_dashboard/dashboard/wallet/withdraw': typeof DashboardDashboardWalletWithdrawRouteWithChildren
   '/_dashboard/dashboard/orders/': typeof DashboardDashboardOrdersIndexRoute
   '/_dashboard/dashboard/orders/$orderId/acknowledge': typeof DashboardDashboardOrdersOrderIdAcknowledgeRoute
   '/_dashboard/dashboard/orders/$orderId/fabric': typeof DashboardDashboardOrdersOrderIdFabricRoute
   '/_dashboard/dashboard/orders/$orderId/pay': typeof DashboardDashboardOrdersOrderIdPayRoute
   '/_dashboard/dashboard/orders/$orderId/rate': typeof DashboardDashboardOrdersOrderIdRateRoute
+  '/_dashboard/dashboard/wallet/transaction/$transactionId': typeof DashboardDashboardWalletTransactionTransactionIdRoute
+  '/_dashboard/dashboard/wallet/withdraw/add-bank': typeof DashboardDashboardWalletWithdrawAddBankRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -183,11 +243,17 @@ export interface FileRouteTypes {
     | '/dashboard/wallet'
     | '/dashboard/'
     | '/dashboard/orders/$orderId'
+    | '/dashboard/wallet/spending'
+    | '/dashboard/wallet/success'
+    | '/dashboard/wallet/topup'
+    | '/dashboard/wallet/withdraw'
     | '/dashboard/orders/'
     | '/dashboard/orders/$orderId/acknowledge'
     | '/dashboard/orders/$orderId/fabric'
     | '/dashboard/orders/$orderId/pay'
     | '/dashboard/orders/$orderId/rate'
+    | '/dashboard/wallet/transaction/$transactionId'
+    | '/dashboard/wallet/withdraw/add-bank'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -200,11 +266,17 @@ export interface FileRouteTypes {
     | '/dashboard/wallet'
     | '/dashboard'
     | '/dashboard/orders/$orderId'
+    | '/dashboard/wallet/spending'
+    | '/dashboard/wallet/success'
+    | '/dashboard/wallet/topup'
+    | '/dashboard/wallet/withdraw'
     | '/dashboard/orders'
     | '/dashboard/orders/$orderId/acknowledge'
     | '/dashboard/orders/$orderId/fabric'
     | '/dashboard/orders/$orderId/pay'
     | '/dashboard/orders/$orderId/rate'
+    | '/dashboard/wallet/transaction/$transactionId'
+    | '/dashboard/wallet/withdraw/add-bank'
   id:
     | '__root__'
     | '/'
@@ -218,11 +290,17 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard/wallet'
     | '/_dashboard/dashboard/'
     | '/_dashboard/dashboard/orders/$orderId'
+    | '/_dashboard/dashboard/wallet/spending'
+    | '/_dashboard/dashboard/wallet/success'
+    | '/_dashboard/dashboard/wallet/topup'
+    | '/_dashboard/dashboard/wallet/withdraw'
     | '/_dashboard/dashboard/orders/'
     | '/_dashboard/dashboard/orders/$orderId/acknowledge'
     | '/_dashboard/dashboard/orders/$orderId/fabric'
     | '/_dashboard/dashboard/orders/$orderId/pay'
     | '/_dashboard/dashboard/orders/$orderId/rate'
+    | '/_dashboard/dashboard/wallet/transaction/$transactionId'
+    | '/_dashboard/dashboard/wallet/withdraw/add-bank'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -311,12 +389,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardOrdersIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/dashboard/wallet/withdraw': {
+      id: '/_dashboard/dashboard/wallet/withdraw'
+      path: '/withdraw'
+      fullPath: '/dashboard/wallet/withdraw'
+      preLoaderRoute: typeof DashboardDashboardWalletWithdrawRouteImport
+      parentRoute: typeof DashboardDashboardWalletRoute
+    }
+    '/_dashboard/dashboard/wallet/topup': {
+      id: '/_dashboard/dashboard/wallet/topup'
+      path: '/topup'
+      fullPath: '/dashboard/wallet/topup'
+      preLoaderRoute: typeof DashboardDashboardWalletTopupRouteImport
+      parentRoute: typeof DashboardDashboardWalletRoute
+    }
+    '/_dashboard/dashboard/wallet/success': {
+      id: '/_dashboard/dashboard/wallet/success'
+      path: '/success'
+      fullPath: '/dashboard/wallet/success'
+      preLoaderRoute: typeof DashboardDashboardWalletSuccessRouteImport
+      parentRoute: typeof DashboardDashboardWalletRoute
+    }
+    '/_dashboard/dashboard/wallet/spending': {
+      id: '/_dashboard/dashboard/wallet/spending'
+      path: '/spending'
+      fullPath: '/dashboard/wallet/spending'
+      preLoaderRoute: typeof DashboardDashboardWalletSpendingRouteImport
+      parentRoute: typeof DashboardDashboardWalletRoute
+    }
     '/_dashboard/dashboard/orders/$orderId': {
       id: '/_dashboard/dashboard/orders/$orderId'
       path: '/dashboard/orders/$orderId'
       fullPath: '/dashboard/orders/$orderId'
       preLoaderRoute: typeof DashboardDashboardOrdersOrderIdRouteImport
       parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/dashboard/wallet/withdraw/add-bank': {
+      id: '/_dashboard/dashboard/wallet/withdraw/add-bank'
+      path: '/add-bank'
+      fullPath: '/dashboard/wallet/withdraw/add-bank'
+      preLoaderRoute: typeof DashboardDashboardWalletWithdrawAddBankRouteImport
+      parentRoute: typeof DashboardDashboardWalletWithdrawRoute
+    }
+    '/_dashboard/dashboard/wallet/transaction/$transactionId': {
+      id: '/_dashboard/dashboard/wallet/transaction/$transactionId'
+      path: '/transaction/$transactionId'
+      fullPath: '/dashboard/wallet/transaction/$transactionId'
+      preLoaderRoute: typeof DashboardDashboardWalletTransactionTransactionIdRouteImport
+      parentRoute: typeof DashboardDashboardWalletRoute
     }
     '/_dashboard/dashboard/orders/$orderId/rate': {
       id: '/_dashboard/dashboard/orders/$orderId/rate'
@@ -349,6 +469,46 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface DashboardDashboardWalletWithdrawRouteChildren {
+  DashboardDashboardWalletWithdrawAddBankRoute: typeof DashboardDashboardWalletWithdrawAddBankRoute
+}
+
+const DashboardDashboardWalletWithdrawRouteChildren: DashboardDashboardWalletWithdrawRouteChildren =
+  {
+    DashboardDashboardWalletWithdrawAddBankRoute:
+      DashboardDashboardWalletWithdrawAddBankRoute,
+  }
+
+const DashboardDashboardWalletWithdrawRouteWithChildren =
+  DashboardDashboardWalletWithdrawRoute._addFileChildren(
+    DashboardDashboardWalletWithdrawRouteChildren,
+  )
+
+interface DashboardDashboardWalletRouteChildren {
+  DashboardDashboardWalletSpendingRoute: typeof DashboardDashboardWalletSpendingRoute
+  DashboardDashboardWalletSuccessRoute: typeof DashboardDashboardWalletSuccessRoute
+  DashboardDashboardWalletTopupRoute: typeof DashboardDashboardWalletTopupRoute
+  DashboardDashboardWalletWithdrawRoute: typeof DashboardDashboardWalletWithdrawRouteWithChildren
+  DashboardDashboardWalletTransactionTransactionIdRoute: typeof DashboardDashboardWalletTransactionTransactionIdRoute
+}
+
+const DashboardDashboardWalletRouteChildren: DashboardDashboardWalletRouteChildren =
+  {
+    DashboardDashboardWalletSpendingRoute:
+      DashboardDashboardWalletSpendingRoute,
+    DashboardDashboardWalletSuccessRoute: DashboardDashboardWalletSuccessRoute,
+    DashboardDashboardWalletTopupRoute: DashboardDashboardWalletTopupRoute,
+    DashboardDashboardWalletWithdrawRoute:
+      DashboardDashboardWalletWithdrawRouteWithChildren,
+    DashboardDashboardWalletTransactionTransactionIdRoute:
+      DashboardDashboardWalletTransactionTransactionIdRoute,
+  }
+
+const DashboardDashboardWalletRouteWithChildren =
+  DashboardDashboardWalletRoute._addFileChildren(
+    DashboardDashboardWalletRouteChildren,
+  )
+
 interface DashboardDashboardOrdersOrderIdRouteChildren {
   DashboardDashboardOrdersOrderIdAcknowledgeRoute: typeof DashboardDashboardOrdersOrderIdAcknowledgeRoute
   DashboardDashboardOrdersOrderIdFabricRoute: typeof DashboardDashboardOrdersOrderIdFabricRoute
@@ -378,7 +538,7 @@ interface DashboardRouteChildren {
   DashboardDashboardExploreRoute: typeof DashboardDashboardExploreRoute
   DashboardDashboardSettingsRoute: typeof DashboardDashboardSettingsRoute
   DashboardDashboardTailorsRoute: typeof DashboardDashboardTailorsRoute
-  DashboardDashboardWalletRoute: typeof DashboardDashboardWalletRoute
+  DashboardDashboardWalletRoute: typeof DashboardDashboardWalletRouteWithChildren
   DashboardDashboardIndexRoute: typeof DashboardDashboardIndexRoute
   DashboardDashboardOrdersOrderIdRoute: typeof DashboardDashboardOrdersOrderIdRouteWithChildren
   DashboardDashboardOrdersIndexRoute: typeof DashboardDashboardOrdersIndexRoute
@@ -389,7 +549,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardDashboardExploreRoute: DashboardDashboardExploreRoute,
   DashboardDashboardSettingsRoute: DashboardDashboardSettingsRoute,
   DashboardDashboardTailorsRoute: DashboardDashboardTailorsRoute,
-  DashboardDashboardWalletRoute: DashboardDashboardWalletRoute,
+  DashboardDashboardWalletRoute: DashboardDashboardWalletRouteWithChildren,
   DashboardDashboardIndexRoute: DashboardDashboardIndexRoute,
   DashboardDashboardOrdersOrderIdRoute:
     DashboardDashboardOrdersOrderIdRouteWithChildren,
@@ -409,13 +569,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
