@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "@/features/shared/Modal";
-import { Button } from "../Button";
+import { Button } from "@/components/shared/Button";
 import { Search, Star, ChevronDown, ChevronRight, X, CheckCircle2, MapPin } from "lucide-react";
-import { MapView } from "../MapView";
+import { MapView } from "@/components/shared/MapView";
 
 const TAILORS = [
   { id: "t1", initials: "FH", name: "Freddy Han", shop: "Freddy Fashion Fare", location: "Port Harcourt", rating: 5.0, orders: 25, completion: 100, distance: "1.2 km", verified: true, avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=70" },
@@ -109,7 +109,7 @@ export function TailorSearchModal({ open, onClose, onSelect }: any) {
             <MapPin size={16} className="text-foreground" />
           </div>
           <div className="relative">
-            <MapView pins={6} height="h-80" onPin={(i) => setBidIndex(i)} />
+            <MapView pins={6} height="h-80" onPin={(i: number) => setBidIndex(i)} />
             {/* Bid card overlay */}
             <AnimatePresence>
               {bidIndex !== null && results[bidIndex % results.length] && (
