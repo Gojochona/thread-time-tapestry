@@ -109,7 +109,7 @@ export function TailorSearchModal({ open, onClose, onSelect }: any) {
             <MapPin size={16} className="text-foreground" />
           </div>
           <div className="relative">
-            <MapView pins={6} height="h-80" onPin={(i) => setBidIndex(i)} />
+            <MapView pins={6} height="h-80" onPin={(i: number) => setBidIndex(i)} />
             {/* Bid card overlay */}
             <AnimatePresence>
               {bidIndex !== null && results[bidIndex % results.length] && (
