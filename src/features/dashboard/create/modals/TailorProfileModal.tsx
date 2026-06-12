@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "@/features/shared/Modal";
-import { Button } from "../Button";
+import { Button } from "@/components/shared/Button";
 import { Star, CheckCircle2, MapPin, Plus } from "lucide-react";
-import { MapView } from "../MapView";
+import { MapView } from "@/components/shared/MapView";
 
 const tabs = ["Overview", "Portfolio", "Reviews"] as const;
 type Tab = typeof tabs[number];

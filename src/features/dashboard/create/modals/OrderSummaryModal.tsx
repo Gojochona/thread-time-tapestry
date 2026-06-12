@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Modal } from "@/features/shared/Modal";
-import { Button } from "../Button";
+import { Button } from "@/components/shared/Button";
 import { CheckCircle2, ArrowRight, Edit3 } from "lucide-react";
 
 export function OrderSummaryModal({ open, onClose, order, onEdit, onSend }: any) {

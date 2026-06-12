@@ -1,5 +1,5 @@
 import { Modal } from "@/features/shared/Modal";
-import { Button } from "../Button";
+import { Button } from "@/components/shared/Button";
 import { Star, Clock, Package, CheckCircle2, MapPin } from "lucide-react";
 
 export function TailorBidModal({ open, onClose, tailor, onAccept, onDecline }: any) {
