@@ -5,7 +5,7 @@ import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/shared/Button";
 import { Input } from "@/components/shared/Input";
 import { Blobs } from "@/components/shared/Blobs";
-import { AuthSide } from "@/routes/login";
+import { AuthSide } from "@/features/auth/LoginPage";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export function SignupPage() {
